@@ -1,0 +1,14 @@
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\bin\Debug\netcoreapp2.0\ReportGenerator.deps.json
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\bin\Debug\netcoreapp2.0\ReportGenerator.runtimeconfig.json
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\bin\Debug\netcoreapp2.0\ReportGenerator.runtimeconfig.dev.json
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\bin\Debug\netcoreapp2.0\ReportGenerator.dll
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\obj\Debug\netcoreapp2.0\ReportGenerator.csprojAssemblyReference.cache
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\obj\Debug\netcoreapp2.0\ReportGenerator.csproj.CoreCompileInputs.cache
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\obj\Debug\netcoreapp2.0\ReportGenerator.AssemblyInfoInputs.cache
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\obj\Debug\netcoreapp2.0\ReportGenerator.AssemblyInfo.cs
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\bin\Debug\netcoreapp2.0\ReportGenerator.pdb
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\obj\Debug\netcoreapp2.0\ReportGenerator.dll
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\obj\Debug\netcoreapp2.0\ReportGenerator.pdb
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\bin\Debug\netcoreapp2.0\Core.dll
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\bin\Debug\netcoreapp2.0\Core.pdb
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportGenerator\obj\Debug\netcoreapp2.0\ReportGenerator.csproj.CopyComplete

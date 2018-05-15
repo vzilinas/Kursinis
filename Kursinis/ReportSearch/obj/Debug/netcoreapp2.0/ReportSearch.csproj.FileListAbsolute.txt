@@ -1,0 +1,14 @@
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\bin\Debug\netcoreapp2.0\ReportSearch.deps.json
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\bin\Debug\netcoreapp2.0\ReportSearch.runtimeconfig.json
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\bin\Debug\netcoreapp2.0\ReportSearch.runtimeconfig.dev.json
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\bin\Debug\netcoreapp2.0\ReportSearch.dll
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\obj\Debug\netcoreapp2.0\ReportSearch.csprojAssemblyReference.cache
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\obj\Debug\netcoreapp2.0\ReportSearch.csproj.CoreCompileInputs.cache
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\obj\Debug\netcoreapp2.0\ReportSearch.AssemblyInfoInputs.cache
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\obj\Debug\netcoreapp2.0\ReportSearch.AssemblyInfo.cs
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\bin\Debug\netcoreapp2.0\ReportSearch.pdb
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\bin\Debug\netcoreapp2.0\Core.dll
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\bin\Debug\netcoreapp2.0\Core.pdb
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\obj\Debug\netcoreapp2.0\ReportSearch.csproj.CopyComplete
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\obj\Debug\netcoreapp2.0\ReportSearch.dll
+C:\Users\theimes\Desktop\Kursinis\Kursinis\ReportSearch\obj\Debug\netcoreapp2.0\ReportSearch.pdb
