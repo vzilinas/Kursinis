@@ -1,0 +1,11 @@
+<div>PythonBinaryCreate_binary_py artifact cache: 0 hits, 
+<a href="#" onclick="$('.82ecda17-8e36-4e53-bbe6-3a4d23835e4b').not('#cache-miss-details').hide();
+                     $('#cache-miss-details').toggle(); return false;">1 miss</a>
+.GatherSources_pyprep_sources artifact cache: 0 hits, 
+<a href="#" onclick="$('.82ecda17-8e36-4e53-bbe6-3a4d23835e4b').not('#cache-miss-details').hide();
+                     $('#cache-miss-details').toggle(); return false;">1 miss</a>
+.
+<div id="cache-miss-details" class="82ecda17-8e36-4e53-bbe6-3a4d23835e4b nodisplay">src/python/report-generation-topology</div>
+
+<div id="cache-miss-details" class="82ecda17-8e36-4e53-bbe6-3a4d23835e4b nodisplay">src/python/report-generation-topology:spouts-bolts-py</div>
+</div>

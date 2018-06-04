@@ -14,9 +14,9 @@ def on_send_error(excp):
 
 
 data = {}
-data['price'] = "600.10"
-data['tax_percent'] = "10"
-data['amount'] = "1"
+data['price'] = 600.10
+data['tax_percent'] = 10
+data['amount'] = 1
 data['shop_name'] = "maximalce"
 json_data = json.dumps(data).encode('utf-8')
 print(json_data)

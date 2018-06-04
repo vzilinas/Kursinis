@@ -1,0 +1,11 @@
+buildroot: /home/vzilinas/Documents/Kursinis/heron-topology
+timestamp: 1528139337.11
+datetime: Monday Jun 04, 2018 22:08:57
+machine: vzilinas-yep
+version: 1.6.0
+user: vzilinas
+path: /home/vzilinas/Documents/Kursinis/heron-topology
+id: pants_run_2018_06_04_22_08_57_110_47db7dc9f58a4ca6b11ead388d64830d
+cmd_line: pants binary src/python/report-generation-topology
+default_report: /home/vzilinas/Documents/Kursinis/heron-topology/.pants.d/reports/pants_run_2018_06_04_22_08_57_110_47db7dc9f58a4ca6b11ead388d64830d/html/build.html
+outcome: FAILURE

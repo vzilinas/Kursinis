@@ -378,3 +378,42 @@ SyntaxError: invalid syntax
 
 
 
+timestamp: 2018-06-04T22:08:57.338001
+args: ['/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/bin/pants', 'binary', 'src/python/report-generation-topology']
+pid: 9094
+Exception caught: (<class 'pants.build_graph.address_lookup_error.AddressLookupError'>)
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/bin/pants", line 11, in <module>
+    sys.exit(main())
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/pants_loader.py", line 69, in main
+    PantsLoader.run()
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/pants_loader.py", line 65, in run
+    cls.load_and_execute(entrypoint)
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/pants_loader.py", line 58, in load_and_execute
+    entrypoint_main()
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/pants_exe.py", line 39, in main
+    PantsRunner(exiter, start_time=start_time).run()
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/pants_runner.py", line 53, in run
+    return runner.run()
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/local_pants_runner.py", line 49, in run
+    self._run()
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/local_pants_runner.py", line 95, in _run
+    self._exiter).setup()
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/goal_runner.py", line 200, in setup
+    goals, context = self._setup_context()
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/goal_runner.py", line 171, in _setup_context
+    self._global_options.subproject_roots
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/goal_runner.py", line 121, in _init_graph
+    graph, address_mapper = graph_helper.create_build_graph(target_roots, self._root_dir)
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/bin/engine_initializer.py", line 101, in create_build_graph
+    for _ in graph.inject_roots_closure(target_roots):
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/engine/legacy/graph.py", line 209, in inject_roots_closure
+    for address in self._inject_specs(target_roots.specs):
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/engine/legacy/graph.py", line 259, in _inject_specs
+    [Specs(specs)])
+  File "/usr/local/lib/python2.7/contextlib.py", line 35, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/vzilinas/.cache/pants/setup/bootstrap-Linux-x86_64/1.6.0/lib/python2.7/site-packages/pants/engine/legacy/graph.py", line 228, in _resolve_context
+    'Build graph construction failed: {} {}'.format(type(e).__name__, str(e))
+
+Exception message: Build graph construction failed: DuplicateNameError An object already exists at 'src/python/report-generation-topology/BUILD' with name 'report-generation-topology': PythonLibraryAdaptor(name='report-generation-topology', sources=<pants.engine.legacy.structs.Globs object at 0x7f019a226150>, type_alias=u'python_library').  Cannot map PythonTargetAdaptor(dependencies=[':report-generation-topology', '3rdparty/python:heronpy', '3rdparty/python:six', '3rdparty/python:kafka-python'], name='report-generation-topology', source='report_generation_topology.py', type_alias=u'python_binary')
+
