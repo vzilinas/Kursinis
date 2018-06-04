@@ -1,0 +1,16 @@
+background: 7.21764016151
+main:pyprep:interpreter: 5.36082601547
+main:pyprep:requirements: 1.73350381851
+main: 0.137799978256
+main:setup: 0.125164270401
+main:pyprep:sources: 0.0903749465942
+main:gen:thrift-py: 0.0129547119141
+main:pyprep: 0.00595927238464
+main:gen: 0.00255393981934
+main:pyprep:requirements:cache: 0.00137710571289
+main:pyprep:sources:cache: 0.00128507614136
+background:workdir_build_cleanup: 0.00108075141907
+main:pyprep:build-local-dists: 0.000346899032593
+main:setup:parse: 0.000327825546265
+main:complete: 0.000195026397705
+main:gen:thrift-py:execute: 0.000135183334351

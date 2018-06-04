@@ -1,0 +1,5 @@
+./pants binary src/python/report-generation-topology
+
+heron submit local \
+  ./dist/report-generation-topology.pex \
+  - Report_Generation_Topology

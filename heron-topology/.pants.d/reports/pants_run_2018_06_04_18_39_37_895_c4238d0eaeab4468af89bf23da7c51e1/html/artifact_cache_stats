@@ -1,0 +1,14 @@
+<div>ResolveRequirements_pyprep_requirements artifact cache: 0 hits, 
+<a href="#" onclick="$('.891b9813-daf0-4477-90fa-4457ce3e32a0').not('#cache-miss-details').hide();
+                     $('#cache-miss-details').toggle(); return false;">3 misses</a>
+.GatherSources_pyprep_sources artifact cache: 0 hits, 
+<a href="#" onclick="$('.891b9813-daf0-4477-90fa-4457ce3e32a0').not('#cache-miss-details').hide();
+                     $('#cache-miss-details').toggle(); return false;">2 misses</a>
+.
+<div id="cache-miss-details" class="891b9813-daf0-4477-90fa-4457ce3e32a0 nodisplay">3rdparty/python:heronpy
+3rdparty/python:kafka-python
+3rdparty/python:six</div>
+
+<div id="cache-miss-details" class="891b9813-daf0-4477-90fa-4457ce3e32a0 nodisplay">src/python/report-generation-topology
+src/python/report-generation-topology:spouts-bolts-py</div>
+</div>

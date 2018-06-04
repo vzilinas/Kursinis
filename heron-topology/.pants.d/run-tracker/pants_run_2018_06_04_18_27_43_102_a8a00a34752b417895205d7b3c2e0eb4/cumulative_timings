@@ -1,0 +1,11 @@
+main: 0.667887926102
+main:setup: 0.376317024231
+background: 0.102283000946
+main:bootstrap: 0.0893099308014
+main:jvm-platform-validate: 0.0116770267487
+main:jvm-platform-validate:jvm-platform-validate: 0.00980091094971
+main:bootstrap:jar-dependency-management: 0.000715017318726
+main:bootstrap:substitute-aliased-targets: 0.000370979309082
+main:setup:parse: 0.000328063964844
+background:workdir_build_cleanup: 0.000187873840332
+main:complete: 0.000184059143066

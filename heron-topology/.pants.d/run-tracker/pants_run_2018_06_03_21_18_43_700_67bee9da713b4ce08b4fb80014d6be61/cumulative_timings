@@ -1,0 +1,7 @@
+main: 0.363434076309
+main:setup: 0.125262022018
+main:bootstrap: 0.0389230251312
+main:bootstrap:jar-dependency-management: 0.000709056854248
+main:bootstrap:substitute-aliased-targets: 0.00040602684021
+main:setup:parse: 0.00032114982605
+main:complete: 0.000195026397705
