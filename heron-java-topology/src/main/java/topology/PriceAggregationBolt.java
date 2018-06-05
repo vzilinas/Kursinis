@@ -2,7 +2,8 @@ package topology;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twitter.heron.api.bolt.BaseRichBolt;
+import com.twitter.heron.api.bolt.BaseBasicBolt;
+import com.twitter.heron.api.bolt.BasicOutputCollector;
 import com.twitter.heron.api.bolt.OutputCollector;
 import com.twitter.heron.api.topology.OutputFieldsDeclarer;
 import com.twitter.heron.api.topology.TopologyContext;
@@ -21,19 +22,14 @@ import java.util.Map;
 /**
  * This Bolt splits a sentence into words
  */
-public class PriceAggregationBolt extends BaseRichBolt {
+public class PriceAggregationBolt extends BaseBasicBolt {
     private Map<String, Double> hashMap = new HashMap<String, Double>();
-    private OutputCollector outputCollector;
     private static final Logger logger = LogManager.getLogger(PriceCalculationBolt.class);
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Override
-    public void prepare(Map<String, Object> map, TopologyContext ctx, OutputCollector collector) {
-        outputCollector = collector;
-    }
     //Execute is called to process tuples
     @Override
-    public void execute(Tuple tuple) {
+    public void execute(Tuple tuple, BasicOutputCollector collector) {
         //Get the sentence content from the tuple
         String calculatedBuy = tuple.getString(0);
 
@@ -57,7 +53,7 @@ public class PriceAggregationBolt extends BaseRichBolt {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        outputCollector.emit(new Values(hashMap));
+        collector.emit(new Values(hashMap));
 
     }
 

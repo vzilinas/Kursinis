@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>heron.starter</groupId>
-  <artifactId>heron-starter</artifactId>
+  <artifactId>report-topology</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>heron-starter</name>
+  <name>report-generation-topology</name>
   <url>https://github.com/streamlio/heron-java-tutorial</url>
 
   <properties>
@@ -36,7 +36,7 @@
       <artifactId>log4j-core</artifactId>
       <version>2.6.2</version>
     </dependency>
-    
+
     <dependency>
     	<groupId>com.fasterxml.jackson.core</groupId>
     	<artifactId>jackson-databind</artifactId>
