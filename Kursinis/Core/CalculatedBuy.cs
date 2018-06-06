@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Core
 {
-    public class Report
-    { 
-        public string Shop_Name { get; set; }
+    public class CalculatedBuy
+    {
+        public string ShopName { get; set; }
         public decimal Income { get; set; }
     }
 }

@@ -10,8 +10,6 @@ namespace Kursinis.OnDemand
 {
     public class GenerateReport
     {
-        const int SablonaiId = 138;
-        const int AktyvusPeriodaiId = 22;
         public static StoredReport GetReport()
         {
             var storedReport = new StoredReport
@@ -19,20 +17,17 @@ namespace Kursinis.OnDemand
                 Date = DateTime.Now
             };
             var reports = new List<Report>();
-            using (SqlConnection conn = new SqlConnection("Server=.\\SQLEXPRESS;DataBase=SMM;Integrated Security=SSPI"))
+            using (SqlConnection conn = new SqlConnection("Server=.\\SQLEXPRESS;DataBase=Kursinis;Integrated Security=SSPI"))
             {
                 conn.Open();
 
                 // create a command object identifying the stored procedure
-                SqlCommand cmd = new SqlCommand("KonsolidavimasPlatyn", conn);
+                SqlCommand cmd = new SqlCommand("GetReports", conn)
+                {
 
-                // set the command object so it knows to execute a stored procedure
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                // add parameter to command, which will be passed to the stored procedure
-                cmd.Parameters.Add(new SqlParameter("@SablonaiId", SablonaiId));
-                cmd.Parameters.Add(new SqlParameter("@AktyvusPeriodaiId", AktyvusPeriodaiId));
-                cmd.CommandTimeout = 0;
+                    // set the command object so it knows to execute a stored procedure
+                    CommandType = CommandType.StoredProcedure
+                };
 
                 // execute the command
                 using (SqlDataReader rdr = cmd.ExecuteReader())
@@ -42,17 +37,8 @@ namespace Kursinis.OnDemand
                     {
                         var report = new Report
                         {
-                            Eil = Convert.ToInt32(rdr["Eil"]),
-                            Eilute = rdr["Eilute"].ToString(),
-                            IstaigosId = Convert.IsDBNull(rdr["IstaigosId"]) ? 0 : Convert.ToInt32(rdr["IstaigosId"]),
-                            Kodas = rdr["Kodas"].ToString(),
-                            Kol = rdr["Kol"].ToString(),
-                            Kolonele = rdr["Kolonele"].ToString(),
-                            Pavadinimas = rdr["Pavadinimas"].ToString(),
-                            Suma = Convert.IsDBNull(rdr["Suma"]) ? 0 : (decimal?)rdr["Suma"],
-                            Tekstas = rdr["Tekstas"].ToString(),
-                            Width = rdr["Width"].ToString(),
-                            Zona = rdr["Zona"].ToString()
+                            Shop_Name = rdr[0].ToString(),
+                            Income = Convert.ToInt32(rdr[1])
                         };
                         reports.Add(report);
                     }

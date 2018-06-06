@@ -8,39 +8,15 @@ namespace Core
     {
         public static string InsertQuery()
         {
-            return @"USE [SMM]
-                            GO
-
-                            INSERT INTO [dbo].[Ataskaitos]
-                                        ([AtaskaitosId]
-                                        ,[Kodas]
-                                        ,[Pavadinimas]
-                                        ,[Nuo]
-                                        ,[Iki]
-                                        ,[BlobaiId]
-                                        ,[Galioja]
-                                        ,[SablonaiId]
-                                        ,[IstaigosId]
-                                        ,[FunkcijosId]
-                                        ,[ProgramosId]
-                                        ,[AktyvusPeriodaiId]
-                                        ,[Processed]
-                                        ,[Processor])
-                                    VALUES
-                                        (@Kodas,
-                                         @Pavadinimas,
-                                         @Nuo,
-                                         @Iki,
-                                         @BlobaiId,
-                                         @Galioja,
-                                         @SablonaiId,
-                                         @IstaigosId,
-                                         @FunkcijosId,
-                                         @ProgramosId,
-                                         @AktyvusPeriodaiId, 
-                                         @Processed, 
-                                         @Processor)
-                            GO";
+            return @"INSERT INTO [dbo].[Buys]
+                               ([Id]
+                               ,[ProductId]
+                               ,[Amount])
+                         VALUES
+                               (@Id
+                               ,@ProductId
+                               ,@Amount)
+                    GO";
         }
     }
 }
