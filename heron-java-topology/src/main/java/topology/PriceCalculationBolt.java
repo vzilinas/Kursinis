@@ -20,13 +20,13 @@ import java.io.IOException;
  * This Bolt splits a sentence into words
  */
 public class PriceCalculationBolt extends BaseBasicBolt {
-    private static final Logger logger = LogManager.getLogger(PriceCalculationBolt.class);
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PriceCalculationBolt.class.getName());
     private ObjectMapper objectMapper = new ObjectMapper();
 
     //Execute is called to process tuples
     @Override
     public void execute(Tuple tuple, BasicOutputCollector collector) {
-        logger.info(String.format("Cought (%s)", tuple));
+        logger.info(String.format("Caught (%s)", tuple));
         //Get the sentence content from the tuple
         String rawbuy = tuple.getString(0);
 
@@ -43,7 +43,7 @@ public class PriceCalculationBolt extends BaseBasicBolt {
         cb.setShop_name(raw.getShop_name());
         double price = (raw.getPrice() + (raw.getPrice() * raw.getTax_percent() / 100)) * raw.getAmount();
         cb.setCalculated_price(price);
-        logger.info("calculated price: " + cb);
+        logger.info("Calculated price: " + cb);
         //An iterator to get each word
         String value = null;
         try {

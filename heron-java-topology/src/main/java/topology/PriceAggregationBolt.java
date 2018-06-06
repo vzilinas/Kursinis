@@ -4,16 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twitter.heron.api.bolt.BaseBasicBolt;
 import com.twitter.heron.api.bolt.BasicOutputCollector;
-import com.twitter.heron.api.bolt.OutputCollector;
 import com.twitter.heron.api.topology.OutputFieldsDeclarer;
-import com.twitter.heron.api.topology.TopologyContext;
 import com.twitter.heron.api.tuple.Fields;
 import com.twitter.heron.api.tuple.Tuple;
 import com.twitter.heron.api.tuple.Values;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import topology.models.CalculatedBuy;
-import topology.models.RawBuy;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,7 +19,7 @@ import java.util.Map;
  */
 public class PriceAggregationBolt extends BaseBasicBolt {
     private Map<String, Double> hashMap = new HashMap<String, Double>();
-    private static final Logger logger = LogManager.getLogger(PriceCalculationBolt.class);
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PriceAggregationBolt.class.getName());
     private ObjectMapper objectMapper = new ObjectMapper();
 
     //Execute is called to process tuples
