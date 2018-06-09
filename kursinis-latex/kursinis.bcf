@@ -1978,14 +1978,12 @@
     <bcf:citekey order="2">laney20013d</bcf:citekey>
     <bcf:citekey order="3">marr2014big</bcf:citekey>
     <bcf:citekey order="4">zikopoulos2011understanding</bcf:citekey>
-    <bcf:citekey order="5">DBLP:journals/corr/XuWCL15</bcf:citekey>
-    <bcf:citekey order="6">Cameron-loss-fun</bcf:citekey>
-    <bcf:citekey order="7">2017arXiv170508292W</bcf:citekey>
-    <bcf:citekey order="8">Convolution-book</bcf:citekey>
-    <bcf:citekey order="9">layers-CS231n</bcf:citekey>
-    <bcf:citekey order="10">layers-fullyconnected</bcf:citekey>
-    <bcf:citekey order="11">DBLP:journals/corr/YosinskiCBL14</bcf:citekey>
-    <bcf:citekey order="12">http://adas.cvc.uab.es/task-cv2016/papers/0002.pdf</bcf:citekey>
+    <bcf:citekey order="5">dean2008mapreduce</bcf:citekey>
+    <bcf:citekey order="6">batchProcessing</bcf:citekey>
+    <bcf:citekey order="7">hasani2014lambda</bcf:citekey>
+    <bcf:citekey order="8">kreps2014questioning</bcf:citekey>
+    <bcf:citekey order="9">kreps2014questioning</bcf:citekey>
+    <bcf:citekey order="9">kappa</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">
