@@ -1,11 +1,13 @@
 package topology;
 
-import com.twitter.heron.api.spout.BaseRichSpout;
-import com.twitter.heron.api.spout.SpoutOutputCollector;
-import com.twitter.heron.api.topology.OutputFieldsDeclarer;
-import com.twitter.heron.api.topology.TopologyContext;
-import com.twitter.heron.api.tuple.Fields;
-import com.twitter.heron.api.tuple.Values;
+
+import org.apache.storm.spout.SpoutOutputCollector;
+import org.apache.storm.task.TopologyContext;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseRichSpout;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
+
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -19,6 +21,8 @@ import java.util.logging.Logger;
  * This spout randomly emits sentences
  */
 public class KafkaSpout extends BaseRichSpout {
+    private static final long serialVersionUID = 3328511128150069047L;
+
     private static final Logger logger = Logger.getLogger(KafkaSpout.class.getName());
 
     // Collector used to emit output
@@ -39,7 +43,7 @@ public class KafkaSpout extends BaseRichSpout {
         props.put("group.id", "kafka-group");
         props.put("key.deserializer", StringDeserializer.class.getName());
         props.put("value.deserializer", StringDeserializer.class.getName());
-        consumer = new KafkaConsumer<>(props);
+        consumer = new KafkaConsumer<String, String>(props);
         consumer.subscribe(Arrays.asList("generate_report"));
         logger.info("testing logger2");
     }

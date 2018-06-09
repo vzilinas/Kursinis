@@ -1,15 +1,14 @@
 package topology;
 
-import com.twitter.heron.api.Config;
-import com.twitter.heron.api.HeronSubmitter;
-import com.twitter.heron.api.exception.AlreadyAliveException;
-import com.twitter.heron.api.exception.InvalidTopologyException;
-import com.twitter.heron.api.topology.TopologyBuilder;
-import com.twitter.heron.api.tuple.Fields;
+import org.apache.storm.StormSubmitter;
+import org.apache.storm.topology.TopologyBuilder;
+import org.apache.storm.Config;
+import org.apache.storm.tuple.Fields;
+
 
 public class ReportGenerationTopology {
 
-    public static void main(String[] args) throws AlreadyAliveException, InvalidTopologyException {
+    public static void main(String[] args) throws Exception {
 
         // Instantiate a topology builder to build the tag
         TopologyBuilder builder = new TopologyBuilder();
@@ -32,6 +31,6 @@ public class ReportGenerationTopology {
 
         Config topologyConfig = new Config();
 
-        HeronSubmitter.submitTopology("ReportGenerationTopology", topologyConfig, builder.createTopology());
+        StormSubmitter.submitTopology("ReportGenerationTopology", topologyConfig, builder.createTopology());
     }
 }

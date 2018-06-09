@@ -2,12 +2,14 @@ package topology;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twitter.heron.api.bolt.BaseBasicBolt;
-import com.twitter.heron.api.bolt.BasicOutputCollector;
-import com.twitter.heron.api.topology.OutputFieldsDeclarer;
-import com.twitter.heron.api.tuple.Fields;
-import com.twitter.heron.api.tuple.Tuple;
-import com.twitter.heron.api.tuple.Values;
+
+import org.apache.storm.topology.BasicOutputCollector;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseBasicBolt;
+import org.apache.storm.tuple.Tuple;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
+
 import topology.models.CalculatedBuy;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.util.Map;
  * This Bolt splits a sentence into words
  */
 public class PriceAggregationBolt extends BaseBasicBolt {
+    private static final long serialVersionUID = 3328511628150069047L;
     private Map<String, Double> hashMap = new HashMap<String, Double>();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PriceAggregationBolt.class.getName());
     private ObjectMapper objectMapper = new ObjectMapper();

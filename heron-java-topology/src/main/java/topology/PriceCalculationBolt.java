@@ -2,15 +2,14 @@ package topology;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twitter.heron.api.bolt.BaseBasicBolt;
-import com.twitter.heron.api.bolt.BasicOutputCollector;
-import com.twitter.heron.api.topology.OutputFieldsDeclarer;
 
-import com.twitter.heron.api.tuple.Fields;
-import com.twitter.heron.api.tuple.Tuple;
-import com.twitter.heron.api.tuple.Values;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.storm.topology.BasicOutputCollector;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseBasicBolt;
+import org.apache.storm.tuple.Tuple;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
+
 import topology.models.CalculatedBuy;
 import topology.models.RawBuy;
 
@@ -20,6 +19,8 @@ import java.io.IOException;
  * This Bolt splits a sentence into words
  */
 public class PriceCalculationBolt extends BaseBasicBolt {
+    private static final long serialVersionUID = 3328511428150069047L;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PriceCalculationBolt.class.getName());
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -41,7 +42,7 @@ public class PriceCalculationBolt extends BaseBasicBolt {
         CalculatedBuy cb = new CalculatedBuy();
 
         cb.setShop_name(raw.getShop_name());
-        double price = (raw.getPrice() + (raw.getPrice() * raw.getTax_percent() / 100)) * raw.getAmount();
+        double price = (raw.getPrice() - (raw.getPrice() * raw.getTax_percent() / 100)) * raw.getAmount();
         cb.setCalculated_price(price);
         logger.info("Calculated price: " + cb);
         //An iterator to get each word
