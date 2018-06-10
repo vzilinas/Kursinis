@@ -1978,12 +1978,15 @@
     <bcf:citekey order="2">laney20013d</bcf:citekey>
     <bcf:citekey order="3">marr2014big</bcf:citekey>
     <bcf:citekey order="4">zikopoulos2011understanding</bcf:citekey>
-    <bcf:citekey order="5">dean2008mapreduce</bcf:citekey>
-    <bcf:citekey order="6">batchProcessing</bcf:citekey>
-    <bcf:citekey order="7">hasani2014lambda</bcf:citekey>
-    <bcf:citekey order="8">kreps2014questioning</bcf:citekey>
-    <bcf:citekey order="9">kreps2014questioning</bcf:citekey>
-    <bcf:citekey order="9">kappa</bcf:citekey>
+    <bcf:citekey order="5">shortstreamproc</bcf:citekey>
+    <bcf:citekey order="6">kelly1961block</bcf:citekey>
+    <bcf:citekey order="7">stonebraker20058</bcf:citekey>
+    <bcf:citekey order="8">dean2008mapreduce</bcf:citekey>
+    <bcf:citekey order="9">batchProcessing</bcf:citekey>
+    <bcf:citekey order="10">hasani2014lambda</bcf:citekey>
+    <bcf:citekey order="11">kreps2014questioning</bcf:citekey>
+    <bcf:citekey order="12">kreps2014questioning</bcf:citekey>
+    <bcf:citekey order="12">kappa</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">

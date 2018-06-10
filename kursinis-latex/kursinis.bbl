@@ -42,6 +42,30 @@
       \field{title}{List of DataBank databases}
       \field{year}{2018}
     \endentry
+    \entry{shortstreamproc}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=bd4f90d6ab44d9eee84714262922f810}{%
+           family={Beard},
+           familyi={B\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{bd4f90d6ab44d9eee84714262922f810}
+      \strng{fullhash}{bd4f90d6ab44d9eee84714262922f810}
+      \strng{bibnamehash}{bd4f90d6ab44d9eee84714262922f810}
+      \strng{authorbibnamehash}{bd4f90d6ab44d9eee84714262922f810}
+      \strng{authornamehash}{bd4f90d6ab44d9eee84714262922f810}
+      \strng{authorfullhash}{bd4f90d6ab44d9eee84714262922f810}
+      \field{labelalpha}{Bea15}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://www.jonathanbeard.io/blog/2015/09/19/streaming-and-dataflow.html}}
+      \field{month}{09}
+      \field{title}{A SHORT INTRO TO STREAM PROCESSING}
+      \field{year}{2015}
+    \endentry
     \entry{dean2008mapreduce}{article}{}
       \name{author}{2}{}{%
         {{hash=4aecfb0cc2e1e3b7899129fa2a94e2b8}{%
@@ -109,6 +133,46 @@
       \field{journaltitle}{ICT Innovations}
       \field{title}{Lambda architecture for real time big data analytic}
       \field{year}{2014}
+    \endentry
+    \entry{kelly1961block}{article}{}
+      \name{author}{3}{}{%
+        {{hash=d11a4b14acce548bf7e110b60848fe70}{%
+           family={Kelly\bibnamedelima Jr},
+           familyi={K\bibinitperiod\bibinitdelim J\bibinitperiod},
+           given={John\bibnamedelima L},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=77ca30068dae8299ea38ac6954a20a9d}{%
+           family={Lochbaum},
+           familyi={L\bibinitperiod},
+           given={Carol},
+           giveni={C\bibinitperiod}}}%
+        {{hash=d5154a531fe0516da1f98303576b34ce}{%
+           family={Vyssotsky},
+           familyi={V\bibinitperiod},
+           given={Victor\bibnamedelima A},
+           giveni={V\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{2f365e718c269a19564b002f6359691d}
+      \strng{fullhash}{2f365e718c269a19564b002f6359691d}
+      \strng{bibnamehash}{2f365e718c269a19564b002f6359691d}
+      \strng{authorbibnamehash}{2f365e718c269a19564b002f6359691d}
+      \strng{authornamehash}{2f365e718c269a19564b002f6359691d}
+      \strng{authorfullhash}{2f365e718c269a19564b002f6359691d}
+      \field{labelalpha}{KLV61}
+      \field{sortinit}{K}
+      \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Bell System Technical Journal}
+      \field{number}{3}
+      \field{title}{A block diagram compiler}
+      \field{volume}{40}
+      \field{year}{1961}
+      \field{pages}{669\bibrangedash 676}
+      \range{pages}{8}
     \endentry
     \entry{kreps2014questioning}{article}{}
       \name{author}{1}{}{%
@@ -251,6 +315,46 @@
       \field{year}{2015}
       \field{pages}{171\bibrangedash 178}
       \range{pages}{8}
+    \endentry
+    \entry{stonebraker20058}{article}{}
+      \name{author}{3}{}{%
+        {{hash=9a603143e19a2dddd58e683838417ea3}{%
+           family={Stonebraker},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=646f0c5307f870117110af21b9b73668}{%
+           family={{Ç}etintemel},
+           familyi={Ç\bibinitperiod},
+           given={Uǧur},
+           giveni={U\bibinitperiod}}}%
+        {{hash=f9c63eb422f85aa16854694fe288be82}{%
+           family={Zdonik},
+           familyi={Z\bibinitperiod},
+           given={Stan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{e88b36179803c7500098dafb2e6ba27a}
+      \strng{fullhash}{e88b36179803c7500098dafb2e6ba27a}
+      \strng{bibnamehash}{e88b36179803c7500098dafb2e6ba27a}
+      \strng{authorbibnamehash}{e88b36179803c7500098dafb2e6ba27a}
+      \strng{authornamehash}{e88b36179803c7500098dafb2e6ba27a}
+      \strng{authorfullhash}{e88b36179803c7500098dafb2e6ba27a}
+      \field{labelalpha}{SÇZ05}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Sigmod Record}
+      \field{number}{4}
+      \field{title}{The 8 requirements of real-time stream processing}
+      \field{volume}{34}
+      \field{year}{2005}
+      \field{pages}{42\bibrangedash 47}
+      \range{pages}{6}
     \endentry
     \entry{zikopoulos2011understanding}{book}{}
       \true{moreauthor}

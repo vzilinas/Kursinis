@@ -16,46 +16,48 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.}Srautinis duomenų apdorojimas}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.}Kiti duomenų apdorojimo tipai}{6}
+\contentsline {subsection}{\numberline {2.3.}Kiti duomenų apdorojimo tipai}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.3.1.}Paketinis duomenų apdorojimas}{6}
+\contentsline {subsubsection}{\numberline {2.3.1.}Paketinis duomenų apdorojimas}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.3.2.}Lambda architektūra}{6}
+\contentsline {subsubsection}{\numberline {2.3.2.}Lambda architektūra}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.3.3.}Kappa architektūra}{6}
+\contentsline {subsubsection}{\numberline {2.3.3.}Kappa architektūra}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.}Testinių duomenų generatorius}{7}
+\contentsline {section}{\numberline {3.}Testinių duomenų generatorius}{8}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.}Apibūdinimas}{7}
+\contentsline {subsection}{\numberline {3.1.}Apibūdinimas}{8}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.}Paskirtis ir panaudojimo būdas}{7}
+\contentsline {subsection}{\numberline {3.2.}Paskirtis ir panaudojimo būdas}{8}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.}Sprendimo naudojančio relaicinę duomenų bazę pralaidumo testas}{8}
+\contentsline {section}{\numberline {4.}Sprendimo naudojančio relaicinę duomenų bazę pralaidumo testas}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.}Apibūdinimas}{8}
+\contentsline {subsection}{\numberline {4.1.}Apibūdinimas}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.}Testavimo rezultatai}{8}
+\contentsline {subsection}{\numberline {4.2.}Testavimo rezultatai}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.}Srautinio apdorojimo architaktūros}{9}
+\contentsline {section}{\numberline {5.}Srautinio apdorojimo architektūros}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.},,Apache Storm''}{9}
+\contentsline {subsection}{\numberline {5.1.},,Apache Storm''}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.},,Apache Spark''}{9}
+\contentsline {subsection}{\numberline {5.2.},,Apache Spark''}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3.},,Apache Flink''}{9}
+\contentsline {subsection}{\numberline {5.3.},,Apache Flink''}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.}Srautinės architektūros sprendimo pralaidumo testas}{10}
+\contentsline {subsection}{\numberline {5.4.}Apibendrinimas}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1.}Apibūdinimas}{10}
+\contentsline {section}{\numberline {6.}Srautinio duomenų apdorojimo sprendimo pralaidumo testas}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2.}Rezultatas}{10}
+\contentsline {subsection}{\numberline {6.1.}Apibūdinimas}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.}Experimento apibendrinimas}{11}
+\contentsline {subsection}{\numberline {6.2.}Rezultatas}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1.}Rezultatai}{11}
+\contentsline {section}{\numberline {7.}Experimento apibendrinimas}{12}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2.}Eksperimento išvados}{11}
+\contentsline {subsection}{\numberline {7.1.}Rezultatai}{12}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Rezultatai ir išvados}{12}
+\contentsline {subsection}{\numberline {7.2.}Eksperimento išvados}{12}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Literatūra}{13}
+\contentsline {section}{Rezultatai ir išvados}{13}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Literatūra}{14}

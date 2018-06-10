@@ -98,15 +98,35 @@ skirtingo pobūdžio duomenų ir turi sugebėti greitai atvaizduoti pokyčius at
 
 \section{Rodiklių duomenų apdorojimo tipai}
 
-
 \subsection{Reliacinės duomenų bazės duomenų apdorojimas}
 
-Aprašoma kaip generacija vyktu stored proceduros budu
+Aprašoma kaip generacija vyktu stored proceduros budu.
 
 \subsection{Srautinis duomenų apdorojimas}
 
-Aprašoma kaip vyktų srautinis duomenu apdorojimas su schema.
-
+    Srautinis duomenų apdorojimas (angl. Stream processing) - yra programavimo paradigma ekvivalenti seniai aprašytai duomenų tekmės programavimo (angl. dataflow programming) paradigmai\cite{shortstreamproc}. 
+Duomenų tekmės programavimo paradigmos idėja, kad visa programa susidaro iš skirtingu modulių, kurie nepriklauso vienas nuo kito ir būtent tai leidžia sukonstruoti praleliai skaičiuojančias programas. 
+Viena iš pirmūjų duomenų tekmės programavimo kompiliatorių yra BLODI - BLokų DIagramų kompiliatorius (angl. BLOck DIagram compiler), su kuriuo buvo kompiliuojamos BLODI programavimo kalba parašytos programos. 
+Šia kalba parašytos programos atitinka inžinierinę elektros grandinės schemą, kur duomenis keliauja per komponentus kaip ir elektros grandinėje. Vienas iš šios programavimo kalbos privalumų buvo tai, 
+kad ją galėjo išmokti žmonės, kurie nebuvo programavimo ekspertai\cite{kelly1961block}. 
+Michael Stonebraker 2005 metais apibrežė 8 taisyklės realaus-laiko srautinio duomenų apdorojimo architektūroms\cite{stonebraker20058}:
+\begin{enumerate}[label=\arabic*]
+    \item taisyklė: Duomenys turi judėti. Kad būtų užtikrinta žema latencija sistema turi apdoroti duomenis nenaudojant duomenų saugojimo operacijas. Taip pat sistema turi ne pati užklausti duomenis, o gauti juos
+    iš kito šaltinio automatiškai. 
+    \item taisyklė: Duomenų transformacijos turi būti vykdomas SQL pobūdžio užklausomis. Žemo lygio srautinio apdorojimo sistemos reikalauja ilgesnio programavimo laiko ir brangesnio palaikymo. Tuo tarpu aukšto lygio sistema 
+    naudojanti SQL užklausas, kurias žino dauguma programuotojų ir naudojama daug skirtingų sistemų, leidžia efektyviau kurti srautinio apdorojimo sprendimus.
+    \item taisyklė: Architektūra turi suvaldyti srautinius duomenų netobulumus. Architektūra turi palaikyti galimybę nutraukti individualius skaičiavimus, tam kad neatsirastų blokuojančių operacijų. Taip pat ši 
+    architektūra turi sugebėti susidoroti su veluojančiomis žinutėmis, pratesiant laiko tarpą per kurį tą žinutė turi ateiti.
+    \item taisyklė: Architektūra turi generuoti nuspėjamus rezultatus. Kiekvieną kartą apdorojant tuos pačius duomenis rezultatai turi būti gaunami tokie patys.
+    \item taisyklė: Architektūra turi gebėti apdoroti išsaugotus duomenis ir realiu laiku gaunamus duomenis. Sistema parašyta su tokia architektūra turi galėti apdoroti jau esančius duomenis taip pat kaip ir 
+    naujai ateinančius. Toks reikalavimas atsirado, nes reikėjo galimybės nepastebimai perjungti apdorojimą iš istorinių duomenų į gyvus realiu laiku ateinančius duomenis automatiškai.
+    \item taisyklė: Architektūra turi užtikrinti duomenų saugumą ir apdorojimo prieinamumą. Kadangi sistema turi apdoroti didelius kiekius duomenų, architektūra, klaidos atveju, turi sugebėti persijungti į atsarginę
+    sistemą ir testi darbą toliau. Taip pat tokios klaidos atveju atsarginė sistema turi būti apdorojusi visus duomenis ir sugebėti iš karto priimti naujus duomenis, o ne apdoroti duomenis iš pradžių.
+    \item taisyklė: Architektūra turi užtikrinti sugebėjima paskirstyti sistemos darbus automatiškai. Srautinio apdorojimo sistemos turi palaikyti kelių procesoriaus gijų operacijas. Taip pat sistema turi galėti 
+    veikti ant kelių kompiuterių vienu metu ir prireikus paskirstyti resursus pagal galimybes.
+\end{enumerate}
+    Nors ir yra tokie aprašyti reikalavimai, tačiauyra labai nedaug srautinio apdorojimo architektūrų atitinkančių visas šias taisykles ir jei atitinka, tai kyla sudėtingumas. Išsamiau konkrekčios srautinio apdorojimo
+    architektūros bus apžvelgtos \ref{srautarch} skyriuje.
 \subsection{Kiti duomenų apdorojimo tipai}
 
 \subsubsection{Paketinis duomenų apdorojimas}
@@ -120,7 +140,7 @@ gauti tik įdėję naujų duomenų.
 
 Lambda architektūra - didelių duomenų apdorojimo architektūra naudojanti srautinio ir paketinio apdorojimo architektūrą. Su šią architektūra bandoma subalansuoti latencija, pralaidumą ir klaidų tolerancija, naudojant 
 paketini apdorojimą tiksliems ir išsamiems duomenų pakentams ir tuo pačiu metu naudoti srautinį apdorojima greitai analizei\cite{hasani2014lambda}. Tačiau ši architektūra turi vieną trukūma - norint naudoti šią architektūrą
-reikia palaikyti dvi skirtingas architektūras, kad kodas būtų atnaujinamas abiejose architektūrose vienu metu\cite{kreps2014questioning}. Relaus pavyzdys tokios architektūros būtų: Kafka žinučių sistema siunčianti duomenis į ,,Apache Storm'', 
+reikia palaikyti dvi skirtingas architektūras, kad kodas būtų atnaujinamas abiejose architektūrose vienu metu\cite{kreps2014questioning}. Vienas pavyzdys tokios architektūros būtų - Kafka žinučių sistema siunčianti duomenis į ,,Apache Storm'', 
 kur duomenis apdorojami srautiškai, ir ,,Apache Hadoop'', kur duomenis apdorojami paketiškai, ir rezultatus saugant skirtingose duomenų bazės lentelėse.
 
 \subsubsection{Kappa architektūra}
@@ -143,9 +163,13 @@ Papasakoti čia apie throtlinimo testavimą
 
 \subsection{Apibūdinimas}
 
+Kaip paruošiu sistema ir kodėl python turėtų būti pakankamai greitas sprendimas, kad netrukdytų rezultatams
+
 \subsection{Testavimo rezultatai}
 
-\section{Srautinio apdorojimo architaktūros}
+Oh shit its slow.
+
+\section{Srautinio apdorojimo architektūros} \label{srautarch}
 Šiame skyriuje palyginsiu skirtingas srautinio apdorojimo architektūrų privalumus ir trūkumus ir pasirinksiu vieną su kuria sukursiu sprendimą rodiklių duomenų apdorojimui.
 \subsection{,,Apache Storm''}
 
@@ -153,17 +177,30 @@ Papasakoti čia apie throtlinimo testavimą
 
 \subsection{,,Apache Flink''}
 
-\section{Srautinės architektūros sprendimo pralaidumo testas}
+\subsection{Apibendrinimas}
+
+Parašau kuri pasirenku ir kodėl
+
+\section{Srautinio duomenų apdorojimo sprendimo pralaidumo testas}
 
 \subsection{Apibūdinimas}
 
+Dar čia parašysiu kokius išbandžiau variantus architektūros.
+Kaip testuosiu, su visais spoutais ir boltais ir t.t.
+
 \subsection{Rezultatas}
+
+Koks pralaidumas buvo, kaip sunku buvo paruošti sistemą, kiti rodikliai, kur stabdė.
 
 \section{Experimento apibendrinimas}
 
 \subsection{Rezultatai}
 
+Palyginsiu srautinės ir reliacinės sprendimų pralaidumus.
+
 \subsection{Eksperimento išvados}
+
+Ką mes iš tu testu galime pasakyti.
 
 \sectionnonum{Rezultatai ir išvados}
 Darbo rezultatai:
