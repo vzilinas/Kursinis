@@ -55,11 +55,12 @@ naudojanti reliacinę duomenų bazę, su sprendimu naudojančiu srautinį duomen
 
 Užduotys:
 \begin{enumerate}
-    \item Analizės budu palyginti srautinį ir reliacinį duomenų apdorojimo sprendimą.
-    \item Sukurti testiniu duomenų generatorių.
+    \item Apsibrėžti skirtingus duomenų apdorojimo būdus ir jų tinkamumą rodiklių duomenų apdorojimui.
+    \item Sukurti testinių duomenų generatorių.
     \item Išmatuoti reliacinės duomenų bazės sprendimo pralaidumą.
     \item Atlikti skirtingų srautinio duomenų apdorojimo sprendimo architektūrų analizę, ir pasirinkti vieną iš jų tyrimui.
     \item Išmatuoti pasirinktos srautinio duomenų apdorojimo architektūros sprendimo pralaidumą.
+    \item Palyginti testavimo rezultatus ir gauti išvadas.
 \end{enumerate}
 
 
@@ -96,26 +97,23 @@ mums sudaro daugiausiai problemų. Šie iššūkiai apibrėžiami Gartner's Doug
     Pagal apibrėžtas charakteristikas matome, kad pagrindiniai rodiklių duomenų iššūkiai yra tūris, greitis ir vertė. Todėl mūsų bandomas sprendimas turi galėti greitai susidoriti su dideliu kiekių 
 skirtingo pobūdžio duomenų ir turi sugebėti greitai atvaizduoti pokyčius atsiradus naujiems duomenims, taip pat turi būti įmanoma šį sprendimą paleisti į realią aplinką nepertraukiant įstaigos veiklą.
 
-\section{Rodiklių duomenų apdorojimo tipai}
+\section{Duomenų apdorojimo tipai}
 
-\subsection{Reliacinės duomenų bazės duomenų apdorojimas}
-
-Aprašoma kaip generacija vyktu stored proceduros budu.
-
-\subsection{Srautinis duomenų apdorojimas}
+\subsection{Srautinis duomenų apdorojimas} \label{strprocess}
 
     Srautinis duomenų apdorojimas (angl. Stream processing) - yra programavimo paradigma ekvivalenti seniai aprašytai duomenų tekmės programavimo (angl. dataflow programming) paradigmai\cite{shortstreamproc}. 
 Duomenų tekmės programavimo paradigmos idėja, kad visa programa susidaro iš skirtingu modulių, kurie nepriklauso vienas nuo kito ir būtent tai leidžia sukonstruoti praleliai skaičiuojančias programas. 
-Viena iš pirmūjų duomenų tekmės programavimo kompiliatorių yra BLODI - BLokų DIagramų kompiliatorius (angl. BLOck DIagram compiler), su kuriuo buvo kompiliuojamos BLODI programavimo kalba parašytos programos. 
+Viena iš pirmūjų duomenų tekmės programavimo kompiliatorių yra BLODI - blokų diagramų kompiliatorius (angl. BLOck DIagram compiler), su kuriuo buvo kompiliuojamos BLODI programavimo kalba parašytos programos. 
 Šia kalba parašytos programos atitinka inžinierinę elektros grandinės schemą, kur duomenis keliauja per komponentus kaip ir elektros grandinėje. Vienas iš šios programavimo kalbos privalumų buvo tai, 
-kad ją galėjo išmokti žmonės, kurie nebuvo programavimo ekspertai\cite{kelly1961block}. 
-Michael Stonebraker 2005 metais apibrežė 8 taisyklės realaus-laiko srautinio duomenų apdorojimo architektūroms\cite{stonebraker20058}:
+kad ją galėjo išmokti žmonės, kurie nebuvo programavimo ekspertai\cite{kelly1961block}. \par
+Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia apsibrėžti srautinio apdorojimo sistemų galimybes.
+2005 metais Michael Stonebraker apibrežė 8 taisyklės realaus-laiko srautinio duomenų apdorojimo architektūroms\cite{stonebraker20058}:
 \begin{enumerate}[label=\arabic*]
     \item taisyklė: Duomenys turi judėti. Kad būtų užtikrinta žema latencija sistema turi apdoroti duomenis nenaudojant duomenų saugojimo operacijas. Taip pat sistema turi ne pati užklausti duomenis, o gauti juos
     iš kito šaltinio automatiškai. 
     \item taisyklė: Duomenų transformacijos turi būti vykdomas SQL pobūdžio užklausomis. Žemo lygio srautinio apdorojimo sistemos reikalauja ilgesnio programavimo laiko ir brangesnio palaikymo. Tuo tarpu aukšto lygio sistema 
     naudojanti SQL užklausas, kurias žino dauguma programuotojų ir naudojama daug skirtingų sistemų, leidžia efektyviau kurti srautinio apdorojimo sprendimus.
-    \item taisyklė: Architektūra turi suvaldyti srautinius duomenų netobulumus. Architektūra turi palaikyti galimybę nutraukti individualius skaičiavimus, tam kad neatsirastų blokuojančių operacijų. Taip pat ši 
+    \item taisyklė: Architektūra turi susidoroti su duomenų netobulumais. Architektūra turi palaikyti galimybę nutraukti individualius skaičiavimus, tam kad neatsirastų blokuojančių operacijų. Taip pat ši 
     architektūra turi sugebėti susidoroti su veluojančiomis žinutėmis, pratesiant laiko tarpą per kurį tą žinutė turi ateiti.
     \item taisyklė: Architektūra turi generuoti nuspėjamus rezultatus. Kiekvieną kartą apdorojant tuos pačius duomenis rezultatai turi būti gaunami tokie patys.
     \item taisyklė: Architektūra turi gebėti apdoroti išsaugotus duomenis ir realiu laiku gaunamus duomenis. Sistema parašyta su tokia architektūra turi galėti apdoroti jau esančius duomenis taip pat kaip ir 
@@ -124,9 +122,36 @@ Michael Stonebraker 2005 metais apibrežė 8 taisyklės realaus-laiko srautinio 
     sistemą ir testi darbą toliau. Taip pat tokios klaidos atveju atsarginė sistema turi būti apdorojusi visus duomenis ir sugebėti iš karto priimti naujus duomenis, o ne apdoroti duomenis iš pradžių.
     \item taisyklė: Architektūra turi užtikrinti sugebėjima paskirstyti sistemos darbus automatiškai. Srautinio apdorojimo sistemos turi palaikyti kelių procesoriaus gijų operacijas. Taip pat sistema turi galėti 
     veikti ant kelių kompiuterių vienu metu ir prireikus paskirstyti resursus pagal galimybes.
-\end{enumerate}
-    Nors ir yra tokie aprašyti reikalavimai, tačiauyra labai nedaug srautinio apdorojimo architektūrų atitinkančių visas šias taisykles ir jei atitinka, tai kyla sudėtingumas. Išsamiau konkrekčios srautinio apdorojimo
-    architektūros bus apžvelgtos \ref{srautarch} skyriuje.
+    \item taisyklė: Architektūra turi apdoroti ir atsakyti momentaliai. Anksčiau minėtos taisyklės nėra svarbius, jeigu sistema nesugeba greitai susidoroti su dideliu kiekiu naujų duomenų. Kad tai sistema
+    pasiektu turi būti naudojamas ne tik tesingas ir greitas srautinio apdorojimo sprendimas, bet ir gerai optimizuota sistema.
+\end{enumerate}\par
+        Šie reikalavimai yra sukurti tik teoriškai ir egzistuoja labai nedaug srautinio apdorojimo architektūrų atitinkančių visas šias taisykles. Tam kad išsirinkti tinkamą architektūrą sprendžiamam uždaviniui, 
+        konkrekčios srautinio apdorojimo architektūros yra apžvelgiamos ir lyginamos \ref{srautarch} skyriuje.
+
+\subsection{Reliacinės duomenų bazės duomenų apdorojimas}
+
+    Reliacinės duomenų bazių valdymo sistemos (angl. Relational database management systems) - tai duomenų valdymo sistema paremta reliaciniu modeliu pirmą kartą aprašytu 1969 metais\cite{codd1969derivability}.
+    Pagal \url{https://db-engines.com/en/ranking} 2018 metų birželio mėnesio rodiklius šiuo metu pagal populiarumą tarp reliacinių ir NoSQL duomenų bazių sistemų pirmos 5 vietos iš 343 yra paskirstytos atitinkamai:
+    \begin{enumerate}
+        \item Oracle (Reliacinė DBVS) - 1311.25
+        \item MySQL (Reliacinė DBVS) - 1233.69
+        \item Micorsoft SQL Server (Reliacinė DBVS) - 1087.73
+        \item PostgreSQL (Reliacinė DBVS) - 410.67
+        \item MongoDB (NoSQL DBVS paremta dokumentų saugyklos modeliu) - 343.79
+    \end{enumerate}\par
+        Šie rezultatai yra apskaičiuojami pagal ,,DB-engines'' algoritmą, kuris atsižvelgia į sistemų paminėjimus svetainėse, paieškos dažnį paieškos varikliuse, techninių diskusijų kiekį
+    žinomose su informacinėmis technologijomis susijusiose svetainėse, profesionalių tinklų profiliuose, populiarumą socialiniuose tinkluose\cite{dbengines}. Aiškiai matome, kad reliacinės
+    duomenų bazių valdymo sistemos stipriai lenkia, bet kokias kitas saugyklas. Būtent toks populiarumas ir lemia, kad jos yra dažnai naudojamos ir duomenų apdorojimui. Kadangi reliacinė
+    duomenų bazė jau egzistuoja, reiškia įmonei nereikia leisti papildomų lėšu: išanalizuoti kitokios sistemos tinkamumą užduočiai, sukurti sprendimą, palaikyti naują sistemą, 
+    pasisiamdyti naują žmogų mokanti dirbti su šia sistema arba apmokyti esamą. \par
+        Reliacinių duomenų bazių duomenų apdorojimo būdas yra išsaugotos procedūros(angl. stored procedures), kurios aprašomos SQL kalba ir gali apdoroti duomenis tiesiai iš duomenų bazės 
+    naudojant reliacinę matematiką. Tačiau jeigu pažiuresimę į išsaugota procedurą, kaip duomenų apdorojimo architektūrą pagal \ref{strprocess} skyriuje apibrėžtas 8 taisykles, 
+    pastebėsime, kad ji neatitinką: 1-os taisyklės: Duomenys turi judėti. Išsaugota procedūra yra leidžiama tik vartotojui užklausus, todėl šis reikalavimas yra neišpildytas, 
+    ir 7-os taisyklės: Architektūra turi užtikrinti sugebėjima paskirstyti sistemos darbus automatiškai. Didžioji dalis reliacinių duomenų bazių nepalaiko horizontalų 
+    plečiamumą\cite{cattelsql, jkubas} ir todėl vieną sitemą gali apdoroti tik pas ją esančius duomenis. Svarbiausiai, išsaugota procedūra negali apdoroti greitai naujų duomenų jeigu duomenų bazėje 
+    jau yra didelis kiekis duomenų, kuriuos reikia apdoroti, nes procedūra apdoroja ne tik naujus bet visus duomenis, tai pažeisdama 8-tą duomenų apdorojimo taisyklė,
+    ir ko pasekoje reliacinis sprendimas analytiškai yra mažiau tinkamas rodiklių duomenų problemai.
+
 \subsection{Kiti duomenų apdorojimo tipai}
 
 \subsubsection{Paketinis duomenų apdorojimas}
@@ -146,8 +171,8 @@ kur duomenis apdorojami srautiškai, ir ,,Apache Hadoop'', kur duomenis apdoroja
 \subsubsection{Kappa architektūra}
 
 Kappa architektūra - tai supaprastinta lambda architektūra, kuri vietoj paketinio apdorojimo naudoja papildomą srautinio adorojimo systemą. Pavyzdžiui yra vienas srautinio apdorojimo darbas, kuris veikia visą laiką
-ir atvaizduoja duomenis gyvai, ir yra kitas darbas kuris paleidžiamas kas kažkiek laiko, kuris susirenka per visą tą laiką susikaupusius duomenis ir praleidžia per save srautu. Kadangi kodai yra vienodi, tai nebeatsiranda 
-anksčiau minetos problemos su skirtingų sistemų palaikymu\cite{kreps2014questioning, kappa}.
+ir atvaizduoja duomenis gyvai, ir yra kitas darbas kuris paleidžiamas kas kažkiek laiko, kuris susirenka per visą tą laiką susikaupusius duomenis ir praleidžia per save srautu. Kadangi kodai yra vienodi, todėl
+nebeatsiranda anksčiau minetį iššūkiai su skirtingų sistemų palaikymu\cite{kreps2014questioning, kappa}.
 
 \section{Testinių duomenų generatorius}
 
