@@ -109,7 +109,7 @@ kad ją galėjo išmokti žmonės, kurie nebuvo programavimo ekspertai\cite{kell
 Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia apsibrėžti srautinio apdorojimo sistemų galimybes.
 2005 metais Michael Stonebraker apibrežė 8 taisyklės realaus-laiko srautinio duomenų apdorojimo architektūroms\cite{stonebraker20058}:
 \begin{enumerate}[label=\arabic*]
-    \item taisyklė: Duomenys turi judėti. Kad būtų užtikrinta žema latencija sistema turi apdoroti duomenis nenaudojant duomenų saugojimo operacijas. Taip pat sistema turi ne pati užklausti duomenis, o gauti juos
+    \item taisyklė: Duomenys turi judėti. Kad būtų užtikrinta žemas uždelstumas sistema turi apdoroti duomenis nenaudojant duomenų saugojimo operacijas. Taip pat sistema turi ne pati užklausti duomenis, o gauti juos
     iš kito šaltinio automatiškai. 
     \item taisyklė: Duomenų transformacijos turi būti vykdomas SQL pobūdžio užklausomis. Žemo lygio srautinio apdorojimo sistemos reikalauja ilgesnio programavimo laiko ir brangesnio palaikymo. Tuo tarpu aukšto lygio sistema 
     naudojanti SQL užklausas, kurias žino dauguma programuotojų ir naudojama daug skirtingų sistemų, leidžia efektyviau kurti srautinio apdorojimo sprendimus.
@@ -163,7 +163,7 @@ gauti tik įdėję naujų duomenų.
 
 \subsubsection{Lambda architektūra}
 
-Lambda architektūra - didelių duomenų apdorojimo architektūra naudojanti srautinio ir paketinio apdorojimo architektūrą. Su šią architektūra bandoma subalansuoti latencija, pralaidumą ir klaidų tolerancija, naudojant 
+Lambda architektūra - didelių duomenų apdorojimo architektūra naudojanti srautinio ir paketinio apdorojimo architektūrą. Su šią architektūra bandoma subalansuoti uždelstumą, pralaidumą ir klaidų tolerancija, naudojant 
 paketini apdorojimą tiksliems ir išsamiems duomenų pakentams ir tuo pačiu metu naudoti srautinį apdorojima greitai analizei\cite{hasani2014lambda}. Tačiau ši architektūra turi vieną trukūma - norint naudoti šią architektūrą
 reikia palaikyti dvi skirtingas architektūras, kad kodas būtų atnaujinamas abiejose architektūrose vienu metu\cite{kreps2014questioning}. Vienas pavyzdys tokios architektūros būtų - Kafka žinučių sistema siunčianti duomenis į ,,Apache Storm'', 
 kur duomenis apdorojami srautiškai, ir ,,Apache Hadoop'', kur duomenis apdorojami paketiškai, ir rezultatus saugant skirtingose duomenų bazės lentelėse.
@@ -173,6 +173,66 @@ kur duomenis apdorojami srautiškai, ir ,,Apache Hadoop'', kur duomenis apdoroja
 Kappa architektūra - tai supaprastinta lambda architektūra, kuri vietoj paketinio apdorojimo naudoja papildomą srautinio adorojimo systemą. Pavyzdžiui yra vienas srautinio apdorojimo darbas, kuris veikia visą laiką
 ir atvaizduoja duomenis gyvai, ir yra kitas darbas kuris paleidžiamas kas kažkiek laiko, kuris susirenka per visą tą laiką susikaupusius duomenis ir praleidžia per save srautu. Kadangi kodai yra vienodi, todėl
 nebeatsiranda anksčiau minetį iššūkiai su skirtingų sistemų palaikymu\cite{kreps2014questioning, kappa}.
+
+\section{Srautinio apdorojimo architektūros} \label{srautarch}
+Šiame skyriuje palyginsime tris atviro kodo srautinio apdorojimo architektūras ,,Apache Storm'', ,,Apache Spark'' ir ,,Apache Flink'' pagal:
+\begin{itemize}
+    \item Pristatymo semantika (angl. delivery semantics) - apibrežia pagal kokį modelį bus pristatyti duomenis. Egzistuoja trys semantikos\cite{ensar20}: 
+    \begin{itemize}
+        \item Bent vieną kartą (angl. At-least-once) užtikrina, kad duomenis bus apdoroti bent kartą, bet gali atsirasti duplikatų. 
+        \item Ne daugiau vieno karto (angl. At-most-once) užtikrina, kad duomenis bus apdoroti daugiausiai tik vieną kartą, bet gali atsirasti praradimų. 
+        \item Tiksliai vieną kartą (angl. Exactly-once) užtikrina, kad duomenis bus apdoroti tik vieną kartą net ir atsiradus klaidoms.
+    \end{itemize}
+    \item Uždelstumas (angl. Latency) - apibrežia kiek laiko užtruks įvykdyti kažkokį veiksmą arba gauti rezultatą.
+    \item Pralaidumas (angl. Throughput) - apibrežia kiek pavyks įvykdyti operacijų per tam tikrą laiko tarpą.
+    \item Abstrakcijos lygis (angl. Abstraction) - apibrežia kokio lygio programavimo sąsają pateikia architektūra.
+\end{itemize}
+
+\subsection{Pristatymo semantika}
+
+\subsection{Uždelstumas}
+
+\subsection{Pralaidumas}
+
+\subsection{Abstrakcijos lygis}
+Pats populiariausias srautinio apdorojimo architektūrų programos pavyzdys yra žodžių skaičiuoklė, kurios tikslas suskaičiuoti kiek kartu pasikartojo tas pats žodis, per visą programos veikimo laiką. Todėl abstrakcijos lygį
+geriausia palyginti šios programos kodo pavyzdžiais\cite{petr2016}:
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/StormAPI.jpg}
+    \caption{,,Apache Storm'' žodžių skaičiavimo programos kodo pavyzdys}
+    \label{fig:stormapi}
+\end{figure} \par
+
+,,Apache Storm'' parašytos programos yra žemo lygio abstrakcijos. \ref{fig:stormapi} pavyzdyje matome labai sumažintą programos pavyzdį. Kadangi tai yra žemo lygio programa mes turime apsirašyti visas srauto apdorojimo stadijas
+pažingsniui, tai yra: setSpouts(..), kur nustatoma duomenų įeiga ir koks bus paralelizmas, setBolt(..), kur nustatatomi apdorojimo moduliai, kokius duomenis gaus iš prieš tai buvusio modulio ir paralelizmas.
+Žemiau, execute() metodas aprašo, kaip gali atrodyti apdorojimo modulis, kuris suskaičiuoja kiek skirtingų žodžių pro jį praėjo. Šios architektūros programų kūriamo laikas užtruks ilgiau negu kitoms 
+architektūroms su aukštu abstrakcijos lygių.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/SparkAPI.jpg}
+    \caption{,,Apache Spark'' žodžių skaičiavimo programos kodo pavyzdys}
+    \label{fig:sparkapi}
+\end{figure} \par
+
+,,Apache Spark'' parašytos programos yra aukšto lygio abstrakcijos. \ref{fig:sparkapi} pavyzdyje matome realu beveik išbaigtą programos pavyzdį. Programa aprašoma funkciškai, todėl kodo rašymas trunka daug trumpiau
+ir tokį kodą daug patogiau skaityti.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/FlinkAPI.jpg}
+    \caption{,,Apache Flink'' žodžių skaičiavimo programos kodo pavyzdys}
+    \label{fig:flinkapi}
+\end{figure} \par
+
+,,Apache Flink'' parašytos programos yra aukšto lygio abstrakcijos. \ref{fig:flinkapi} pavyzdyje matome pilnai veikiančios programos pavyzdį. ,,Apache Flink'' architektūra pati užsiema distribucija, todėl
+programuotojui lieka tik parašyti veikianti kodą, o sistema pati susitvarkys su paralelizmu.
+
+\subsection{Apibendrinimas}
+
+Parašau kuri pasirenku ir kodėl
 
 \section{Testinių duomenų generatorius}
 
@@ -193,18 +253,6 @@ Kaip paruošiu sistema ir kodėl python turėtų būti pakankamai greitas sprend
 \subsection{Testavimo rezultatai}
 
 Oh shit its slow.
-
-\section{Srautinio apdorojimo architektūros} \label{srautarch}
-Šiame skyriuje palyginsiu skirtingas srautinio apdorojimo architektūrų privalumus ir trūkumus ir pasirinksiu vieną su kuria sukursiu sprendimą rodiklių duomenų apdorojimui.
-\subsection{,,Apache Storm''}
-
-\subsection{,,Apache Spark''}
-
-\subsection{,,Apache Flink''}
-
-\subsection{Apibendrinimas}
-
-Parašau kuri pasirenku ir kodėl
 
 \section{Srautinio duomenų apdorojimo sprendimo pralaidumo testas}
 
