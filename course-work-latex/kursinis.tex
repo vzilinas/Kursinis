@@ -14,6 +14,8 @@
 \usepackage{wrapfig}
 % \usepackage{lithuanian}
 \usepackage{longtable}
+\usepackage{xcolor}
+
 
 \usepackage{enumitem}
 %PAKEISTA, tarpai tarp sąrašo elementų
@@ -25,8 +27,8 @@
 \faculty{Matematikos ir informatikos fakultetas}
 \department{Programų sistemų katedra}
 \papertype{Kursinis darbas}
-\title{Rodiklių duomenų kaupimas, transformavimas ir analizė, naudojant NoSQL duomenų bazę}
-\titleineng{(Storage, transformation and analysis of indicator data with the help of NoSQL database)}
+\title{Rodiklių duomenų kaupimas, transformavimas ir analizė, naudojant srautinį duomenų apdorojimą}
+\titleineng{Indicator Data Collection, Transformation and Analysis Using Stream Processing}
 \status{3 kurso 5 grupės studentas}
 \author{Vytautas Žilinas}
 \supervisor{lekt. Andrius Adamonis}
@@ -83,7 +85,7 @@ mums sudaro daugiausiai problemų. Šie iššūkiai apibrėžiami Gartner's Doug
     ir analizuoti tradicinėmis duomenų bazių technologijomis. Rodiklių duomenų kiekiai dažniausiai nesudaro problemos saugojant, tačiau didelė problema yra rodiklių duomenų analizė, 
     kadangi tuos pačius duomenis reikia apdoroti pagal neapribotą skaičių skirtingų rodiklių.
     \item Greitis (angl. Velocity). Apibrežia greitį, kuriuo nauji duomenis yra generuojami. Rodiklių duomenų atveju, tai yra labai svarbu, kadnagi nauji duomenis, kurie gali 
-    tikti skirtingiems rodikliams yra generuojami visais laikais.
+    tikti skirtingiems rodikliams yra generuojami pastoviai.
     \item Įvairovė (angl. Variety). Apibrežia duomenų tipus. Duomenys gali būti: strukturizuoti, nestrukturizuoti arba dalinai strukturizuoti\cite{zikopoulos2011understanding}. 
     Rodiklių duomenis dažinau yra strukturizuoti, todėl tai nėra aktualus iššūkis.
     \item Tikrumas (angl. Veracity). Apibrežia duomenų tesingumą ir kokybę. Pavyzdžiui, jeigu analizuotume ,,Twitter'' socialinio tinklo žinučių turinį gautume daug gramatikos klaidų, naujadarų, slengo. 
@@ -92,7 +94,7 @@ mums sudaro daugiausiai problemų. Šie iššūkiai apibrėžiami Gartner's Doug
     ši charakteristika yra svarbi iš tos pusės, kad duomenų apdorojimo ir kaupimo sprendimai labai stipriai daro įtaką įstaigos, kaupiančios rodiklių duomenis, ekonomikai. Taip pat šių duomenys ir jų 
     analizė turi būti pasiekiama be prastovos laiko.
 \end{itemize}
-    Pagal apibrėžtas charakteristikas matome, kad pagrindiniai rodiklių duomenų iššūkiai yra tūris, greitis ir vertė. Todėl mūsų bandomas sprendimas turi galėti greitai susidoriti su dideliu kiekių 
+    Pagal apibrėžtas charakteristikas matome, kad pagrindiniai rodiklių duomenų iššūkiai yra tūris, greitis ir vertė. Todėl mūsų bandomas sprendimas turi galėti greitai susidoroti nebutinai dideliu kiekiu 
 skirtingo pobūdžio duomenų ir turi sugebėti greitai atvaizduoti pokyčius atsiradus naujiems duomenims, taip pat turi būti įmanoma šį sprendimą paleisti į realią aplinką nepertraukiant įstaigos veiklą.
 
 \section{Duomenų apdorojimo tipai}
@@ -187,14 +189,30 @@ nebeatsiranda anksčiau minetį iššūkiai su skirtingų sistemų palaikymu\cit
 \end{itemize}
 
 \subsection{Pristatymo semantika}
-
+    ,,Apache Spark'' ir ,,Apache Storm'' architektūrų pristatymo semantika yra tiksliai vieną kartą (angl. Exactly-once), tai reiškia, kad visi 
+duomenys bus apdoroti tik vieną kartą. Tačiau tam, kad užtikrinti šią semantiką architektūra sunaudoja daug resursų, nes reikia užtikrinti, kad 
+operacija bus vykdoma būtent vieną kartą kiekviename srautinio apdorojimo žingsnyje: duomenų gavime, kas stipriai priklauso nuo duomenų šaltinio,
+duomenų transformacijos, kuri turi užtikrinti pati srautinio apdorojimo architektūra ir duomenų saugojime, kas turi būti užtikrinta architektūros ir
+naudojamos saugyklos\cite{zhang20}.\par
+    ,,Apache Storm'' pristatymo semantika yra bent viena kartą (angl. at-least-once), kas reiškia, kad per šią architektūra leidžiami duomenys 
+visada pasieks pabaigą, tačiau kartais gali dubliuotis\cite{prithi20}. Jeigu sprendimas reikalauja tiksliai vieno karto apdorojimo, tada mes turime rinktis arba vieną 
+iš aukščiau minėtų architektūrų arba ,,Apache Storm Trident'' - ant ,,Apache storm'' architektūros pastatyta aukšto abstarkcijos lygio architektūra 
+galinti užtikrinti tiksliai vieno karto apdorojimą. Tačiau jei uždavynis to nereikalauja, greičio, ypač uždelstumo, atveju daug geriau pasirinkti 
+pigesnę pristatymo semantiką\cite{zhang20}.
 \subsection{Uždelstumas}
-
+    Uždelstumas, srautinio apdorojimo architektūroms yra matuojamas milisekundėmis, kas parodo kaip greitai architektūra įvykdo vieną operaciją. 
+Pagal Martin Andreoni Lopez darytus bandymus su šiomis architektūromis galime matyti, kad būtent ,,Apache Storm'' turi mažiausia uždelstumą,
+parinkus teisingai paraleliškumą ši architektūra su užduotimi susidorojo net iki 15 kartų greičiau. Antroje vietoje liko ,,Apache Flink'', o po jos
+,,Apache Spark''\cite{Lopez2016APC}. Tačiau dažniausiai kai architektura turi labai žemą uždelstumą, tai ji turės taip pat ir žemą pralaidumą, kas nėra gerai, kai norima
+apdoroti daug duomenų iš karto.
 \subsection{Pralaidumas}
-
+    Pralaidumas apibrežia kokį kiekį procesų sistema gali įvykdyti per tam tikrą laiko tarpą. 2016 metais Sanket Chintapalli su kolegomis išmatavo ,,Apache Storm'',
+,,Apache Spark'' ir ,,Apache Flink'' architektūrų pralaidumą ir uždelstumą ir palygino rezultatus. Kaip ir anksčiau manyta, ,,Apache Spark'' turėjo aukščiausia 
+pralaidumą iš visų, kadangi jis vienintelis iš trijų duomenis apdoroja mikro-paketais. Antroje vietoje liko ,,Apache Flink'', kuris yra subalansuotas uždelstumo,
+pralaidumo atveju ir paskutinis liko ,,Apache Storm'', kuris turi labai žemą uždelstumą, todėl nukenčia pralaidumas\cite{chintapalli2016benchmarking}.
 \subsection{Abstrakcijos lygis}
-Pats populiariausias srautinio apdorojimo architektūrų programos pavyzdys yra žodžių skaičiuoklė, kurios tikslas suskaičiuoti kiek kartu pasikartojo tas pats žodis, per visą programos veikimo laiką. Todėl abstrakcijos lygį
-geriausia palyginti šios programos kodo pavyzdžiais\cite{petr2016}:
+Pats populiariausias srautinio apdorojimo architektūrų programos pavyzdys yra žodžių skaičiuoklė, kurios tikslas suskaičiuoti kiek 
+kartu pasikartojo tas pats žodis, per visą programos veikimo laiką. Todėl abstrakcijos lygį geriausia palyginti šios programos kodo pavyzdžiais\cite{petr2016}:
 
 \begin{figure}[!htbp]
     \centering
@@ -203,10 +221,12 @@ geriausia palyginti šios programos kodo pavyzdžiais\cite{petr2016}:
     \label{fig:stormapi}
 \end{figure} \par
 
-,,Apache Storm'' parašytos programos yra žemo lygio abstrakcijos. \ref{fig:stormapi} pavyzdyje matome labai sumažintą programos pavyzdį. Kadangi tai yra žemo lygio programa mes turime apsirašyti visas srauto apdorojimo stadijas
-pažingsniui, tai yra: setSpouts(..), kur nustatoma duomenų įeiga ir koks bus paralelizmas, setBolt(..), kur nustatatomi apdorojimo moduliai, kokius duomenis gaus iš prieš tai buvusio modulio ir paralelizmas.
-Žemiau, execute() metodas aprašo, kaip gali atrodyti apdorojimo modulis, kuris suskaičiuoja kiek skirtingų žodžių pro jį praėjo. Šios architektūros programų kūriamo laikas užtruks ilgiau negu kitoms 
-architektūroms su aukštu abstrakcijos lygių.
+,,Apache Storm'' parašytos programos yra žemo lygio abstrakcijos. \ref{fig:stormapi} pavyzdyje matome labai sumažintą programos pavyzdį. 
+Kadangi tai yra žemo lygio programa mes turime apsirašyti visas srauto apdorojimo stadijas pažingsniui, tai yra: setSpouts(..), 
+kur nustatoma duomenų įeiga ir koks bus paralelizmas, setBolt(..), kur nustatatomi apdorojimo moduliai, kokius duomenis gaus iš 
+prieš tai buvusio modulio ir paralelizmas. Žemiau, execute() metodas aprašo, kaip gali atrodyti apdorojimo modulis, kuris suskaičiuoja 
+kiek skirtingų žodžių pro jį praėjo. Šios architektūros programų kūriamo laikas užtruks ilgiau negu kitoms architektūroms su aukštu 
+abstrakcijos lygių, tačiau žemas abstrakcijos leidžia rašyti daug greičiau veikiančias programas, kadangi programuotojas turi beveik pilną kontrolę.
 
 \begin{figure}[!htbp]
     \centering
@@ -215,8 +235,10 @@ architektūroms su aukštu abstrakcijos lygių.
     \label{fig:sparkapi}
 \end{figure} \par
 
-,,Apache Spark'' parašytos programos yra aukšto lygio abstrakcijos. \ref{fig:sparkapi} pavyzdyje matome realu beveik išbaigtą programos pavyzdį. Programa aprašoma funkciškai, todėl kodo rašymas trunka daug trumpiau
-ir tokį kodą daug patogiau skaityti.
+,,Apache Spark'' parašytos programos yra aukšto lygio abstrakcijos. \ref{fig:sparkapi} pavyzdyje matome realu beveik išbaigtą programos pavyzdį. 
+Programa aprašoma funkciškai, todėl kodo rašymas trunka daug trumpiau ir tokį kodą daug patogiau skaityti. Tačiau prarandama galimybė optimizuoti
+ir paralelizmo klausimas paliekamas architektūrai, taip pat ,,Apache Spark'' yra ne pilnai srautinio, o mikro-paketinė (angl. micro-batching) 
+architektūra, todėl vartotojas turi apsirašyti kokio dydžio paketais bus renkami duomenys\cite{shoro2015big}.
 
 \begin{figure}[!htbp]
     \centering
@@ -225,13 +247,33 @@ ir tokį kodą daug patogiau skaityti.
     \label{fig:flinkapi}
 \end{figure} \par
 
-,,Apache Flink'' parašytos programos yra aukšto lygio abstrakcijos. \ref{fig:flinkapi} pavyzdyje matome pilnai veikiančios programos pavyzdį. ,,Apache Flink'' architektūra pati užsiema distribucija, todėl
-programuotojui lieka tik parašyti veikianti kodą, o sistema pati susitvarkys su paralelizmu.
+,,Apache Flink'' parašytos programos yra aukšto lygio abstrakcijos. \ref{fig:flinkapi} pavyzdyje matome pilnai veikiančios programos pavyzdį. ,,Apache Flink'' 
+architektūra pati užsiema resursų distribucija, todėl programuotojui lieka tik parašyti veikianti kodą, o sistema pati susitvarkys su paralelizmu. Tačiau 
+tai reiškia, kad su šia architektūra parašytos programos nepavyks optimizuoti taip pat gerai kaip žemo lygio abstrakcijos architektūros.
 
 \subsection{Apibendrinimas}
+Iš šiu triju text architektūrų reikia pasirinkti vieną, kuri labiausiai tiks rodiklių duomenų apdorojimui. Ši architektūra turi sugebėti greitai apdoroti duomenis,
+prioretizuojant greiti virš tikslumo, kadangi vienas iš pagrindinių naudotojų yra statiską renkančios įstaigos, kurios gali sau leisti tam tikrą paklaidą,
+ir programuotojas turi galėti aprašyti daug skirtingų sprendimų skirtingiems rodikliams.\par
 
-Parašau kuri pasirenku ir kodėl
+\begin{center}
+    \begin{table}[!htbp]
+        \caption{Srautinių architektūrų palyginimas}
+        \label{table:comparer}
+        \begin{tabular}{ | l | c | c | c | } 
+            \hline
+            Charakteristika & ,,Apache Storm'' & ,,Apache Spark'' & ,,Apache Flink'' \\* \hline
+            Pristatymo semantika & Bent vieną kartą & Tiksliai vieną kartą & Tiksliai vieną kartą \\* \hline
+            Uždelstumas & Žemas & Aukštas & Vidutinis \\* \hline
+            Pralaidumas & Žemas & Aukštas & Vidutinis \\* \hline
+            Abstrakcijos lygis & Žemas & Aukštas & Aukštas \\* \hline
+        \end{tabular}
+    \end{table}
+\end{center}\par
 
+Kaip matome iš atliktos analizės \ref{table:comparer} lentelėje ir apsibrėžtų reikalavimų, mums labiausiai tinkanti srautinio apdorojimo architektūra yra ,,Apache Storm''. 
+Nors jos pralaidumas yra žemas, mums daug aktualiau yra greitis, taip pat žemas abstarkcijos lygis leis daug geriau optimizuoti sprendimą su šia architektūra. Su ją kursime
+sprendimą, kurį lyginsimę su reliacinės duomenų bazės sprendimu.
 \section{Testinių duomenų generatorius}
 
 \subsection{Apibūdinimas}
