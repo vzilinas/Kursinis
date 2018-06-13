@@ -94,8 +94,8 @@ mums sudaro daugiausiai problemų. Šie iššūkiai apibrėžiami Gartner's Doug
     ši charakteristika yra svarbi iš tos pusės, kad duomenų apdorojimo ir kaupimo sprendimai labai stipriai daro įtaką įstaigos, kaupiančios rodiklių duomenis, ekonomikai. Taip pat šių duomenys ir jų 
     analizė turi būti pasiekiama be prastovos laiko.
 \end{itemize}
-    Pagal apibrėžtas charakteristikas matome, kad pagrindiniai rodiklių duomenų iššūkiai yra tūris, greitis ir vertė. Todėl mūsų bandomas sprendimas turi galėti greitai susidoroti nebutinai dideliu kiekiu 
-skirtingo pobūdžio duomenų ir turi sugebėti greitai atvaizduoti pokyčius atsiradus naujiems duomenims, taip pat turi būti įmanoma šį sprendimą paleisti į realią aplinką nepertraukiant įstaigos veiklą.
+%     Pagal apibrėžtas charakteristikas matome, kad pagrindiniai rodiklių duomenų iššūkiai yra tūris, greitis ir vertė. Todėl mūsų bandomas sprendimas turi galėti greitai susidoroti nebutinai dideliu kiekiu 
+% skirtingo pobūdžio duomenų ir turi sugebėti greitai atvaizduoti pokyčius atsiradus naujiems duomenims, taip pat turi būti įmanoma šį sprendimą paleisti į realią aplinką nepertraukiant įstaigos veiklą.
 
 \section{Duomenų apdorojimo tipai}
 
@@ -274,17 +274,32 @@ ir programuotojas turi galėti aprašyti daug skirtingų sprendimų skirtingiems
 Kaip matome iš atliktos analizės \ref{table:comparer} lentelėje ir apsibrėžtų reikalavimų, mums labiausiai tinkanti srautinio apdorojimo architektūra yra ,,Apache Storm''. 
 Nors jos pralaidumas yra žemas, mums daug aktualiau yra greitis, taip pat žemas abstarkcijos lygis leis daug geriau optimizuoti sprendimą su šia architektūra. Su ją kursime
 sprendimą, kurį lyginsimę su reliacinės duomenų bazės sprendimu.
+
 \section{Testinių duomenų generatorius}
 
-\subsection{Apibūdinimas}
+Kad išmatuotume abiejų sistemų greitaveiką, sukurėme testinių duomenų generatorių, kuris tiktų abiems sistemos. Todėl jis yra padarytas iš dviejų dalių:
+,,Apache Kafka'' žinučių sistemos ir su ,,Python'' programavimo kalba sukurtas duomenų generatorius (\ref{fig:generator} pav.).
 
-Papasakoti čia apie Kafka
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/testdatagenerator.jpg}
+    \caption{Testinių duomenų generatoriaus architektūra}
+    \label{fig:generator}
+\end{figure}
+\subsection{,,Python'' duomenų generatorius}
 
-\subsection{Paskirtis ir panaudojimo būdas}
+Su ,,Python'' kalba pararšytas generatorius, kuris sukuria didelį kiekį duomenų, naudojant ,,random'' biblioteką ir veliau po vieną siunčia į 
+,,Apache Kafka'' žinučių sistemą. Kadangi bendravimas tarp programos ir žinučių sistemos yra labai greitas, testavimui įvestas kintamasis, kuris
+nurodo, kiek laiko laukti iki kito siuntimo, naudojant ,,time'' bibliotekos ,,sleep'' funkciją į kurią galima įvesti laiką sekundėmis, kuris
+nurodo kokiam laiko tarpui sustabdomas einamasis procesas. Tačiau, kadangi ,,sleep'' funkcija naudoja procesoriaus dažnį, ji nėra absoliučiai tiksli
+ir jos paklaida priklauso nuo procesoriaus ir operacinės sistemos\cite{imtiaz20}. Todėl su atskirą ,,Python'' programą buvo išmatuotas kompiuterio,
+su kurios buvo vykdomi testai, paklaida, kuri buvo 0.86 milisekundės. Derinant šį uždelsimo laika bus bandoma nustatyti abiejų sprendimu pralaidumus.
 
-Papasakoti čia apie throtlinimo testavimą
+\subsection{,,Apache Kafka'' žinučių sistema}
 
-\section{Sprendimo naudojančio relaicinę duomenų bazę pralaidumo testas}
+
+
+\section{Sprendimo naudojančio relaicinę duomenų bazę testas}
 
 \subsection{Apibūdinimas}
 
@@ -294,16 +309,37 @@ Kaip paruošiu sistema ir kodėl python turėtų būti pakankamai greitas sprend
 
 Oh shit its slow.
 
-\section{Srautinio duomenų apdorojimo sprendimo pralaidumo testas}
+\section{Srautinio duomenų apdorojimo sprendimo testas}
 
 \subsection{Apibūdinimas}
 
-Dar čia parašysiu kokius išbandžiau variantus architektūros.
-Kaip testuosiu, su visais spoutais ir boltais ir t.t.
-
+,,Apache Storm'' programa yra vadinama topologija, kuri susideda iš ,,Spout'' ir ,,Bolt'' modulių. ,,Spout'' tai modulis gaunantis duomenis
+iš išorinės sistemos ir perduodantis juos į pirmą ,,Bolt'' modulį. ,,Bolt'' yra atsakingi už duomenų apdorojima ir atidavimą atgal į išorę.
+Moduliai tarpusavyje perduoda duomenų ,,Tuple'' tipu, kuris laiko duomenis ir architektūros sugeneruotą identifikatorių, 
+kurio pagalba užtikrina, kad duomenis sėkmingai nuėjo iki sekančio žingsnio. 
+Šiam uždaviniu spresti buvo pasirinkta suskurti:
+\begin{enumerate}
+    \item ,,kafka-spout'' - ,,Spout'' modulis, kuris gauna duomenis iš ,,Apache Kafka'' žinučių sistemos ir perduoda juos pirmam ,,Bolt'' moduliui.
+    \item ,,calculate-price-bolt'' - ,,Bolt'' modulis, kuris gauna string tipo duomenis iš ,,kafka-spout'' ir apdoroja vieną atejusį ,,Tuple''.
+    \item ,,aggregate-price-bolt'' - ,,Bolt'' modulis, kuris gauta apdorota ,,Tuple'' įdeda į ,,HashMap'' tipo sąrašą ir visą sąrašą perduoda toliau.  
+\end{enumerate}\par
+Kadangi ,,Apache Storm'' yra žemo lygio architektūra programuotojas turi pats numatyti paralelizmo lygi kiekviename modulyje. 
+Po bandymų buvo nuspresta modelių konfiguraciją daryti tokią(\ref{fig:stormtopology} pav.): ,,kafka-spout'' - 5 paralelus procesai, ,,calculate-price-bolt''
+ - 5 paralelus procesai ir ,,aggregate-price-bolt'' - 1 paralelus procesas. Pakutinį moduli negalima leisti paraleliai, nes jis pas save 
+ laiko bendrą sąrašą, kurio pakartotinas keitimas sugadina duomenis.\par
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/topology.jpg}
+    \caption{,,Apache Storm'' realizuota topologija}
+    \label{fig:stormtopology}
+\end{figure}
+Prieš pradedant testavimą į sistemą buvo sugeneruota 10 milijonų įrašų, kad būtų sudarytos sąlygos panašios kaip ir reliacinei duomenų bazei.
+Paleista testavimo programa siunčianti 1,5 milijono duomenų neribojant siuntimo greičio, rezultatai buvo stebimi įrašais tekstiniame dokumente.
+Šiai sistemai pagal nutylejimą buvo išskirti 832 megabaitai operatyvios atminties (angl. RAM). 
 \subsection{Rezultatas}
-
-Koks pralaidumas buvo, kaip sunku buvo paruošti sistemą, kiti rodikliai, kur stabdė.
+Visi duomenys buvo apdoroti per 274 sekundes, kas yra maždaug 4,5 minutės. Vidutiniška vienos operacijos trukmė - 75 milisekundės.
+Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt'', nes jo negalima buvo leisti paraleliai. Šios sistemos veikimą pagreitinti 
+įmanoma tik perdavus paskutinio moduliu aggregavimą į sąrašą kitai architektūrai, kadangi visus kitus veiksmus galima leisti paralelei. 
 
 \section{Experimento apibendrinimas}
 

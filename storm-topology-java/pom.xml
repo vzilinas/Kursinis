@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ReportGenerationTopology</groupId>
+	<groupId>storm</groupId>
 	<artifactId>storm-starter</artifactId>
-	<version>1.2.2</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>storm-starter</name>
@@ -55,7 +55,13 @@
                     <goals>
                         <goal>shade</goal>
                     </goals>
-
+                    <configuration>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            </transformer>
+                        </transformers>
+                    </configuration>
                 </execution>
 				</executions>
 			</plugin>
@@ -77,7 +83,7 @@
 		  <groupId>org.apache.storm</groupId>
 		  <artifactId>storm-core</artifactId>
 		  <version>1.2.2</version>
-		  <scope>provided</scope>
+		  <scope>compile</scope>
 		</dependency>
 		<dependency>
 		  <groupId>com.fasterxml.jackson.core</groupId>

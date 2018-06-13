@@ -41,7 +41,7 @@ public class PriceCalculationBolt extends BaseBasicBolt {
         CalculatedBuy cb = new CalculatedBuy();
 		String shopName = raw.getShop_name();
         cb.setShop_name(shopName);
-        double price = (raw.getPrice() + (raw.getPrice() * raw.getTax_percent() / 100)) * raw.getAmount();
+        double price = (raw.getPrice() - (raw.getPrice() * raw.getTax_percent() / 100)) * raw.getAmount();
         cb.setCalculated_price(price);
         //An iterator to get each word
         String value = null;
