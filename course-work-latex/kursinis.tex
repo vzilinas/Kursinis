@@ -293,21 +293,50 @@ Su ,,Python'' kalba pararšytas generatorius, kuris sukuria didelį kiekį duome
 nurodo, kiek laiko laukti iki kito siuntimo, naudojant ,,time'' bibliotekos ,,sleep'' funkciją į kurią galima įvesti laiką sekundėmis, kuris
 nurodo kokiam laiko tarpui sustabdomas einamasis procesas. Tačiau, kadangi ,,sleep'' funkcija naudoja procesoriaus dažnį, ji nėra absoliučiai tiksli
 ir jos paklaida priklauso nuo procesoriaus ir operacinės sistemos\cite{imtiaz20}. Todėl su atskirą ,,Python'' programą buvo išmatuotas kompiuterio,
-su kurios buvo vykdomi testai, paklaida, kuri buvo 0.86 milisekundės. Derinant šį uždelsimo laika bus bandoma nustatyti abiejų sprendimu pralaidumus.
+su kurios buvo vykdomi testai, paklaida, kuri buvo 0.86 milisekundės. Derinant šį uždelsimo laiką bus įmanoma nustatyti ir palygint abiejų sprendimų pralaidumus.
 
 \subsection{,,Apache Kafka'' žinučių sistema}
 
+,,Apache Kafka'' - tai servisas laikantis duomenis, kurie yra vadinami žinutėmis (angl. messages). Žinutės yra skirstomos pagal temas (angl. topics).
+Yra žinučių kurėjai (angl. producers), kurie siunčia žinutės į tam tikras temas, ir varototojai (angl. consumers), kurie prenumeruoja (angl. subscribe)
+prie temų, kad gautu su jomis susijusias žinutes\cite{thein2014apache}. ,,Apache Kafka'' architektūra yra įdomi tuo, kad ji laiko visas žinutes pas save, kol nėra liepiama 
+trinti, todėl tą pačią žinutę gali perskaityti keli vartotojai. Ši architektūra labai tinka srautinio apdorojimo sprendimams, kadangi ji išsiunčia žinutes,
+kai jas gauna, o ne tada kai kita sistema užklausia. \par 
+Mūsų sukurtas sprendimas taip pat naudoja ,,Apache Kafka''. Iš pirmo žvilgsnio atrodytų, 
+kad reliacinės duomenų bazės atžvilgiu, ši architektūra yra perteklinė, tačiau net pridėjus šį papildomą sluoksnį duomenų įrašymas suletėja labai nedaug.
+Taip pat visos žinutės šia sistema yra perduodamos tekstiniu formatu, tam kad bendrauti su ,,Apache Kafka'' būtų įmanoma su bet kokia programavimo kalba.
+Bet dėl to gali nukentėti šiek tiek greitaveikos kadangi prisideda papildomas konvertavimas iš teksto į tinkamą objektą.
 
-
-\section{Sprendimo naudojančio relaicinę duomenų bazę testas}
+\section{Sprendimo naudojančio reliacinę duomenų bazę testas}
 
 \subsection{Apibūdinimas}
 
-Kaip paruošiu sistema ir kodėl python turėtų būti pakankamai greitas sprendimas, kad netrukdytų rezultatams
+Reliacinės duombazės realizavimui pasirinkta ,,Microsoft SQL Server'' duomenų bazė, o duomenų apdorojimui parašyta išsaugota procedūra (angl. stored procedure).
+Sukurtas minimali duomenų bazė, su trijomis lentelėmis\ref{fig:dbdiagram}.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/dbdiagram.jpg}
+    \caption{Reliacinė duomenų bazė testavimui}
+    \label{fig:dbdiagram}
+\end{figure}
 
-\subsection{Testavimo rezultatai}
+Sukurta išsaugota procedura sujungia šias tris lenteles į vieną, kurioje yra parodoma kiekvienos parduotuvės uždirbtus pinigus pagal nesudetinga sumavimo formulę.
+Pradinėje duomenų bazėje egzistuoja 2,000 parduotuvių, kurios turi 0 arba daugiau prekių, 1,000,000 prekių, kurios turi 0 arba daugiau pirkimų, 10,000,000 pirkimų.
+Išsaugota procedūra be jokių kitų procesų, su pradinių duomenų kiekių, vidutiniškai užtrunka 12 sekundžių. Testavimui bus naudojama papildoma ,,Python'' programa,
+kuri gavusi žinutę iš ,,Apache Kafkos'', kurs įdėjimo užklausą į duomenų bazę (\ref{fig:generator}. pav). Kadangi mes negalime testuoti išsaugotos proceduros taip 
+pat kaip srautinę apdorojimo sprendimą, mes darysime šį testą kiek kitaip. Vienų metų bus dedami duomenis ir paraleliai kviečiama išsaugota procedūra ir didinant 
+testinių duomenų generatoriaus uždelstumą, bus ieškomas uždelstumas prie kurio vis dar bus įmanoma kreiptis į duomenų bazę.
 
-Oh shit its slow.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/dbms.jpg}
+    \caption{Reliacinės duomenų bazės testavimo architektūra}
+    \label{fig:generator}
+\end{figure}
+
+\subsection{Rezultatai}
+
+Kokie rezultatai.
 
 \section{Srautinio duomenų apdorojimo sprendimo testas}
 
@@ -336,20 +365,21 @@ Po bandymų buvo nuspresta modelių konfiguraciją daryti tokią(\ref{fig:stormt
 Prieš pradedant testavimą į sistemą buvo sugeneruota 10 milijonų įrašų, kad būtų sudarytos sąlygos panašios kaip ir reliacinei duomenų bazei.
 Paleista testavimo programa siunčianti 1,5 milijono duomenų neribojant siuntimo greičio, rezultatai buvo stebimi įrašais tekstiniame dokumente.
 Šiai sistemai pagal nutylejimą buvo išskirti 832 megabaitai operatyvios atminties (angl. RAM). 
-\subsection{Rezultatas}
-Visi duomenys buvo apdoroti per 274 sekundes, kas yra maždaug 4,5 minutės. Vidutiniška vienos operacijos trukmė - 75 milisekundės.
-Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt'', nes jo negalima buvo leisti paraleliai. Šios sistemos veikimą pagreitinti 
-įmanoma tik perdavus paskutinio moduliu aggregavimą į sąrašą kitai architektūrai, kadangi visus kitus veiksmus galima leisti paralelei. 
-
-\section{Experimento apibendrinimas}
-
 \subsection{Rezultatai}
+Visi, 1,5 milijonų, duomenų buvo apdoroti per 274 sekundes, kas yra maždaug 4,5 minutės. Vidutiniška vienos operacijos trukmė nuo 
+patekimo į ,,Apache Kafka'' žinučių sistemą iki galutinio pridėjimo prie bendro sąrašo - 75 milisekundės.
+Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt'', nes jo negalima buvo leisti paraleliai. Šios sistemos veikimą pagreitinti 
+įmanoma tik perdavus paskutinio moduliu aggregavimą į sąrašą kitai architektūrai, kadangi visus kitus veiksmus galima leisti paraleliai. 
 
-Palyginsiu srautinės ir reliacinės sprendimų pralaidumus.
+% \section{Experimento apibendrinimas}
 
-\subsection{Eksperimento išvados}
+% \subsection{Rezultatai}
 
-Ką mes iš tu testu galime pasakyti.
+% Palyginsiu srautinės ir reliacinės sprendimų pralaidumus.
+
+% \subsection{Eksperimento išvados}
+
+% Ką mes iš tu testu galime pasakyti.
 
 \sectionnonum{Rezultatai ir išvados}
 Darbo rezultatai:
