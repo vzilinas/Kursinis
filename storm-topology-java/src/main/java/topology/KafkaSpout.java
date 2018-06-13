@@ -29,6 +29,7 @@ public class KafkaSpout extends BaseRichSpout {
     private SpoutOutputCollector collector;
 
     private Consumer<String, String> consumer;
+    private int counter = 1;
 
     // Used to generate a random number
     // Open is called when an instance of the class is created
@@ -56,9 +57,13 @@ public class KafkaSpout extends BaseRichSpout {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records) {
                 collector.emit(new Values(record.value()));
-                logger.info("emited: " + record.value());
+                if (counter % 10000 == 0) {
+                    logger.info("Current count in kafka spout: " + counter);
+                }
+                counter++;
             }
         }
+
 
     }
 

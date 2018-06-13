@@ -13,20 +13,16 @@ public class ReportGenerationTopology {
         // Instantiate a topology builder to build the tag
         TopologyBuilder builder = new TopologyBuilder();
 
-
-        // Define the parallelism hint for the topololgy
-        int parallelism = 1;
-
         // Build the topology to have a 'word' spout and 'exclaim' bolt
         // also, set the 'word' spout bolt to have two instances
-        builder.setSpout("kafka-spout", new KafkaSpout(), parallelism);
+        builder.setSpout("kafka-spout", new KafkaSpout(), 5);
 
         // Specify that 'exclaim1' bolt should consume from 'word' spout using
         // Shuffle grouping running in four instances
-        builder.setBolt("calculate-price-bolt", new PriceCalculationBolt(), parallelism)
+        builder.setBolt("calculate-price-bolt", new PriceCalculationBolt(), 5)
                 .fieldsGrouping("kafka-spout", new Fields("rawbuy"));
 
-        builder.setBolt("aggregate-price-bolt", new PriceAggregationBolt(), parallelism)
+        builder.setBolt("aggregate-price-bolt", new PriceAggregationBolt(), 1)
                 .fieldsGrouping("calculate-price-bolt", new Fields("calculatedbuy"));
 
         Config topologyConfig = new Config();

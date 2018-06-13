@@ -27,7 +27,6 @@ public class PriceCalculationBolt extends BaseBasicBolt {
     //Execute is called to process tuples
     @Override
     public void execute(Tuple tuple, BasicOutputCollector collector) {
-        logger.info(String.format("Caught (%s)", tuple));
         //Get the sentence content from the tuple
         String rawbuy = tuple.getString(0);
 
@@ -40,11 +39,10 @@ public class PriceCalculationBolt extends BaseBasicBolt {
         }
 
         CalculatedBuy cb = new CalculatedBuy();
-
-        cb.setShop_name(raw.getShop_name());
+		String shopName = raw.getShop_name();
+        cb.setShop_name(shopName);
         double price = (raw.getPrice() + (raw.getPrice() * raw.getTax_percent() / 100)) * raw.getAmount();
         cb.setCalculated_price(price);
-        logger.info("Calculated price: " + cb);
         //An iterator to get each word
         String value = null;
         try {

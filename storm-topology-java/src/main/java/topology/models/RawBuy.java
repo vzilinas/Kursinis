@@ -5,6 +5,7 @@ public class RawBuy {
     private double price;
     private int tax_percent;
     private int amount;
+	private int product_id;
 
     public String getShop_name() {
       return shop_name;
@@ -19,7 +20,12 @@ public class RawBuy {
     public void setPrice(double price) {
       this.price = price;
     }
-
+    public int getProduct_id() {
+      return product_id;
+    }
+    public void setProduct_id(int product_id) {
+      this.product_id = product_id;
+    }
     public int getTax_percent() {
       return tax_percent;
     }
