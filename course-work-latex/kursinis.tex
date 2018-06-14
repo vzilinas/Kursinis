@@ -52,6 +52,15 @@
 
 \sectionnonum{Įvadas}
 
+Lietuvoje geriausiai žinomas rodiklių duomenų bazės pavyzdys yra ,,Lietuvos statistikos departamento'' duomenų bazė, kurioje užklausas galima vykdyti
+\url{https://osp.stat.gov.lt/statistiniu-rodikliu-analize#/} puslapyje, kuris leidžia ieškoti duomenis apdorotus pagal vieną arba kelis rodiklius. 
+Didesnis pavyzdys yra ,,DataBank'' \url{http://databank.worldbank.org} - pasaulinio lygio rodiklių duomenų bazių rinkinys, turintis 69 skirtingas 
+duomenų bazes, pavyzdžiui - ,,World development indicators'', ,,Gander statistics'' ir kitus\cite{databank-stats}. \par
+Jei tokius kiekius duomenų bandysime apdoroti su reliacinėmis duomenų bazėmis, tai užtruks labai ilgai.
+Šiu metu pasaulyje labai aktuali didelių duomenų (angl. Big data) tema, kuri yra susijusi su tokiais iššūkiais kaip didelių duomenų kiekių saugojimas, 
+transformacija, analizė, ir tam yra kuriamos modernios duomenų apdorojimo technologijos, vieną iš kurių yra srautinio duomenų apdorojimo architektūra.
+Ši architektūra turi užtikrinti greita didelių kiekių duomenų apdorojimą, patogų duomenų surinkimą ir suteikti patogią programavimo sąsają.    
+
 Darbo tikslas: Eksperimento būdu išbandyti rodiklių duomenų kaupimo, transformavimo ir analizės uždavinių sprendinius, palyginant sprendimą, naudojanti reliacinę duomenų bazę, su sprendimu naudojančiu srautinį duomenų apdorojimą.
 
 Užduotys:
@@ -71,11 +80,6 @@ Užduotys:
 Rodiklių duomenys - tai didelių duomenų tipas, kurį galima transformuoti ir analizuoti ir kuris yra sugrupuotas pagal rodiklius, 
 pavyzdžiui: bazinė menėsio alga, mirusiųjų skaičius pagal mirties priežastis, krituliai per metus. Šie duomenys dažniausiai yra saugomi reliacinėse duomenų bazėse, 
 kur užklausus vartotojui skaičiuojami apibendrinti rodikliai - sumos, vidurkiai ir kita statistika.
-Lietuvoje pagrindinis rodiklių duomenų bazės pavyzdys yra ,,Lietuvos statistikos departamento'' duomenų bazė, kurios duomenis galima pasiekti
-\url{https://osp.stat.gov.lt/statistiniu-rodikliu-analize#/} puslapyje, kuris leidžia ieškoti duomenis pagal vieną arba kelis rodiklius. Didesnis pavyzdys yra ,,DataBank''
-\url{http://databank.worldbank.org} - pasaulinio lygio rodiklių duomenų bazių rinkinys, turintis 69 skirtingas duomenų bazes, pavyzdžiui - ,,World development indicators'',
-,,Gander statistics'' ir kitus\cite{databank-stats}.
-
 \subsection{Charakteristikos}
 
 Apibrėžime minėjau, kad rodiklių duomenis yra didelių duomenų tipas, todėl galime jiems pritaikyti didelių duomenų charakteristikas ir apsibrėžti, kurios iš jų 
@@ -336,7 +340,11 @@ testinių duomenų generatoriaus uždelstumą, bus ieškomas uždelstumas prie k
 
 \subsection{Rezultatai}
 
-Kokie rezultatai.
+Tiesiog kviečiant išsaugotą procedūrą trunka vidutiniškai 12 sekundžių. Kviečiant įdėjimo funkciją, be jokios kitos apkrovos ant duomenų bazės, 1,5 milijonų duomenų
+buvo įdėti per 358 sekundžių, beveik 6 minutes. Tačiau vien paleidus vieną tokį pat pastovų įrašų srautą į duomenų bazę ir bandant tuo pačiu metu gauti apdorotus duomenis, išsaugota
+procedūra užtruko vidutiniškai 29 sekundes ir taip pat apdorotas duomenų sąrašas po generavimo atskiliko virš 120,000 įrašų. Taip pat vienas iš 
+išsaugotos prodcedūros trukūmų - įdėjus bent vieną nauja duomenį ir norint gauti ataskaita turi iš naujo būti vykdoma procedūra, kurios trūkmė apie 12 sekundžių
+su testuojama duomenų imtimi.
 
 \section{Srautinio duomenų apdorojimo sprendimo testas}
 
@@ -382,18 +390,31 @@ Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt'', nes jo negalima buvo
 % Ką mes iš tu testu galime pasakyti.
 
 \sectionnonum{Rezultatai ir išvados}
-Darbo rezultatai:
-\begin{itemize}
-    \item Sukurtas testinių duomenų generatorius, kurio pagalba buvo vykdomas pralaidumo testavimas.
-    \item Sukurtas sprendimas su pasirinkta srautinio apdorojimo architektūra.
-    \item Atlikti pralaidumo testai sukurtam srautinio apdorojimo sprendimui, apibendrinti sprendimų pralaidumo testų rezultatai.
-\end{itemize}
 
-Darbo išvados:
-\begin{itemize}
-\item 
-\item
-\end{itemize}
+\textbf{Darbo rezultatai:}
+\vspace{1 mm}
+
+    \begin{enumerate}
+        \item Sukurtas testinių duomenų generatorius, kurio pagalba buvo vykdomas pralaidumo testavimas.
+        \item Ibandyti skirtingi topologijų tipai ir sukurtas sprendimas su pasirinkta srautinio apdorojimo architektūra.
+        \item Atlikti pralaidumo testai sukurtam srautinio apdorojimo sprendimui, apibendrinti sprendimų pralaidumo testų rezultatai.
+    \end{enumerate}
+    \vspace{1 mm}
+
+\textbf{Išvados:}
+\vspace{1 mm}
+
+    \begin{enumerate}
+    \item Srautinio apdorojimo architektūra tinka spręsti rodiklių duomenų apdorojimo uždavynį, nes gali tai padaryti greitai, be 
+    duomenų praradimo ir dideliais kiekiais vienu metu.
+    \item Duomenų tiekimui gali būti naudojama ,,Apache Kafka'' servisas, kas leidžia užtikrinti pastovu duomenų srauta, kuris
+    perduoda duomenis be papildomo užklausimo.
+    \item Eksperimento būdu pagrįsta, kad siūloma sistema gali būti įgyvendinama.
+    \item Pralaidumo testavimo metu įrodyta, kad srautinio duomenų apdorojimo sprendimas apdoroja duomenis greičiau nei reliacinių duomenų
+    bazės sprendimas ir nėra priklausomas nuo kitų tuo pačiu metu vykdomų procesų
+    \item Srautinio apdorojimo architektūra ,,Apache Storm'' šiam uždaviniui užtikrina duomenų apdorojimo milisekundžių greičiu.  
+
+    \end{enumerate}
 
 \printbibliography[heading=bibintoc] 
 
