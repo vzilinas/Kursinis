@@ -235,7 +235,7 @@ Kadangi tai yra žemo lygio programa mes turime apsirašyti visus srauto apdoroj
 ,,Apache Spark'' parašytos programos yra aukšto lygio abstrakcijos. \ref{fig:sparkapi} pavyzdyje matome realu beveik išbaigtą programos pavyzdį. 
 Programa aprašoma funkciškai, todėl kodo rašymas trunka daug trumpiau ir tokį kodą daug patogiau skaityti. Tačiau prarandama galimybė optimizuoti
 ir paralelizmo klausimas paliekamas architektūrai, taip pat ,,Apache Spark'' yra ne pilnai srautinio, o mikro-paketinė (angl. micro-batching) 
-architektūra, todėl vartotojas turi apsirašyti kokio dydžio paketais bus renkami duomenys\cite{shoro2015big}.
+architektūra, todėl vartotojas turi apsirašyti kokio dydžio paketais bus renkami duomenys \cite{shoro2015big}.
 
 \begin{figure}[!htbp]
     \centering
@@ -279,7 +279,7 @@ Kad išmatuotume abiejų sistemų greitaveiką, sukūrėme tęstinių duomenų g
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{img/testdatagenerator.jpg}
+    \includegraphics[width=0.95\textwidth]{img/testdatagenerator2.jpg}
     \caption{Testinių duomenų generatoriaus architektūra}
     \label{fig:generator}
 \end{figure}
@@ -309,7 +309,7 @@ Bet dėl to gali nukentėti šiek tiek greitaveikos kadangi prisideda papildomas
 \subsection{Apibūdinimas}
 
 Reliacinės duomenų bazės realizavimui pasirinkta ,,Microsoft SQL Server'' duomenų bazė, o duomenų apdorojimui parašyta išsaugota procedūra (angl. stored procedure).
-Sukurtas minimali duomenų bazė, su 3 lentelėmis\ref{fig:dbdiagram}.
+Sukurtas minimali duomenų bazė, su 3 lentelėmis (\ref{fig:dbdiagram} pav.).
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{img/dbdiagram.jpg}
@@ -326,7 +326,7 @@ testavimo duomenų generatoriaus uždelstumą, bus ieškomas uždelstumas prie k
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/dbms.jpg}
+    \includegraphics[width=0.95\textwidth]{img/dbms2.jpg}
     \caption{Reliacinės duomenų bazės testavimo architektūra}
     \label{fig:generator}
 \end{figure}
@@ -356,7 +356,7 @@ Po bandymų buvo nuspręsta modelių konfigūraciją daryti tokią(\ref{fig:stor
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{img/topology.jpg}
+    \includegraphics[width=0.95\textwidth]{img/topology2.jpg}
     \caption{,,Apache Storm'' realizuota topologija}
     \label{fig:stormtopology}
 \end{figure}
