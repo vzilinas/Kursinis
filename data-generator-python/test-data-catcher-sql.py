@@ -2,6 +2,7 @@ from kafka import KafkaConsumer
 from os import getenv
 import json
 import pyodbc
+from datetime import datetime
 
 
 consumer = KafkaConsumer('generate_report',
@@ -25,8 +26,13 @@ sqlinsert = """
                 ({amount}
                 ,{product_id})
     """
+count = 0
 for message in consumer:
     data = json.loads(message.value)
     insertquery= sqlinsert.format(amount=data['amount'], product_id=data["product_id"])
     cursor.execute(insertquery)
     conn.commit()
+    if(count % 100000 == 0):
+        print(str(datetime.now()) + ' ' + str(count))
+    count += 1
+
