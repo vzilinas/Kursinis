@@ -1,0 +1,55 @@
+doneApibrėžimas į įvadą pradžią.
+
+!!!Dažniausiai ir labai visus ištrinti
+
+
+done Po užduotimis reikia paasiškinti kad darysiu supaprastinta už
+Supaprastintas uždavinys
+
+done Kappa ir labmda pašalinti
+
+
+!Srautiniu duomenu architektūros -> Srautiniu duomenu archietkturu sprendimo ypatumai -> naudoti anotacija
+
+Paveiklsliukus perteikti kitaip kaip architektūra
+
+Visą eksperimentą sudeti į viena -> Experimentine sistema
+
+Ekspreimento realziacija -> 
+Paminėti: kai nerekiai saugoti duomenų, o reika tik agregatu.
+Ką norime išmatuoti?
+Kodėl norime?
+Experimento vykdymas ->
+Kaip vykdytas eksperimentas?
+
+Kaip daromi getReports? ir kiek kartų jie įvyko?
+
+Išsaugota procedūra -> procedūra GetReports
+
+Generatorius generaco 
+
+Pavaizduoti timeline
+
+Viena transakcija:
+insert - commit
+Aprasyti kiek irasų per sekundę
+
+Jei noru matuoti latency
+
+	Kiek duomo laukia eilej
+
+	pirma ideti i kafka po to matuoti
+
+done Rezultatas:
+	1 sukurta sistema.
+	2 atiliktas pralaidumo testas.
+
+Išvados:
+
+Reikia parašyti koks buvo pralaidumas tiksliai.
+
+done 1 ir 2. išmesti
+
+
+Hints per gynimą:
+Duomenis nera dedami niekur o saugomi tik RAM.

@@ -52,38 +52,17 @@
 
 \sectionnonum{Įvadas}
 
+Rodiklių duomenys - tai didelių duomenų tipas, kurį galima transformuoti ir analizuoti ir kuris yra sugrupuotas pagal rodiklius, 
+pavyzdžiui: bazinė mėnesio alga, mirusiųjų skaičius pagal mirties priežastis, krituliai per metus. Šie duomenys yra saugomi reliacinėse duomenų bazėse, 
+kur užklausus vartotojui skaičiuojami apibendrinti rodikliai - sumos, vidurkiai ir kita statistika.\par
 Lietuvoje geriausiai žinomas rodiklių duomenų bazės pavyzdys yra ,,Lietuvos statistikos departamento'' duomenų bazė, kurioje užklausas galima vykdyti
 \url{https://osp.stat.gov.lt/statistiniu-rodikliu-analize#/} puslapyje, kuris leidžia ieškoti duomenis apdorotus pagal vieną arba kelis rodiklius. 
 Didesnis pavyzdys yra ,,DataBank'' \url{http://databank.worldbank.org} - pasaulinio lygio rodiklių duomenų bazių rinkinys, turintis 69 skirtingas 
 duomenų bazes, pavyzdžiui - ,,World development indicators'', ,,Gander statistics'' ir kitus\cite{databank-stats}. \par
-Jei tokius kiekius duomenų bandysime apdoroti su reliacinėmis duomenų bazėmis, tai užtruks labai ilgai.
 Šiuo metu pasaulyje labai aktuali didelių duomenų (angl. Big data) tema, kuri yra susijusi su tokiais iššūkiais kaip didelių duomenų kiekių saugojimas, 
-transformacija, analizė, ir tam yra kuriamos modernios duomenų apdorojimo technologijos, vieną iš kurių yra srautinio duomenų apdorojimo architektūra.
-Ši architektūra turi užtikrinti greita didelių kiekių duomenų apdorojimą, patogų duomenų surinkimą ir suteikti patogią programavimo sąsają.    
-
-Darbo tikslas: Eksperimento būdu išbandyti rodiklių duomenų kaupimo, transformavimo ir analizės uždavinių sprendinius, palyginant sprendimą, naudojanti reliacinę duomenų bazę, su sprendimu naudojančiu srautinį duomenų apdorojimą.
-
-Užduotys:
-\begin{enumerate}
-    \item Atlikti skirtingų srautinio duomenų apdorojimo sprendimo architektūrų analizę, ir pasirinkti vieną iš jų tyrimui.
-    \item Sukurti testavimo duomenų generatorių.
-    \item Išmatuoti duoto reliacinės duomenų bazės sprendimo pralaidumą.
-    \item Realizuoti srautinio duomenų apdorojimo architektūros rodiklių duomenų kaupimo sprendimą.
-    \item Išmatuoti srautinio duomenų apdorojimo sprendimo pralaidumą ir palyginti testavimo rezultatus.
-\end{enumerate}
-
-
-\section{Rodiklių duomenys}
-
-\subsection{Apibrėžimas}
-
-Rodiklių duomenys - tai didelių duomenų tipas, kurį galima transformuoti ir analizuoti ir kuris yra sugrupuotas pagal rodiklius, 
-pavyzdžiui: bazinė mėnesio alga, mirusiųjų skaičius pagal mirties priežastis, krituliai per metus. Šie duomenys dažniausiai yra saugomi reliacinėse duomenų bazėse, 
-kur užklausus vartotojui skaičiuojami apibendrinti rodikliai - sumos, vidurkiai ir kita statistika.
-\subsection{Charakteristikos}
-
-Apibrėžime minėjau, kad rodiklių duomenis yra didelių duomenų tipas, todėl galime jiems pritaikyti didelių duomenų charakteristikas ir apsibrėžti, kurios iš jų 
-mums sudaro daugiausiai problemų. Šie iššūkiai apibrėžiami Gartner's Doug Laney pristatytu 3V modeliu\cite{laney20013d}, kuris vėliau buvo papildytas Bernard Marr iki 5V modelio\cite{marr2014big}:
+transformacija, analizė. Mes galime apsibrėžti rodiklių duomenis kaip didelių duomenų tipą, todėl galime jiems pritaikyti didelių duomenų charakteristikas 
+ir apsibrėžti, kurios iš jų mums sudaro daugiausiai problemų. Šie iššūkiai apibrėžiami Gartner's Doug Laney pristatytu 3V modeliu\cite{laney20013d},
+kuris vėliau buvo papildytas Bernard Marr iki 5V modelio\cite{marr2014big}:
 \begin{itemize}
     \item Tūris (angl. Volume). Apibrėžia generuojamų duomenų kiekius. Didelių duomenų atveju yra šnekama apie duomenų kiekius, kuriuos yra sudėtinga arba neįmanoma saugoti 
     ir analizuoti tradicinėmis duomenų bazių technologijomis. Rodiklių duomenų kiekiai dažniausiai nesudaro problemos saugojant, tačiau didelė problema yra rodiklių duomenų analizė, 
@@ -97,7 +76,28 @@ mums sudaro daugiausiai problemų. Šie iššūkiai apibrėžiami Gartner's Doug
     \item Vertė (angl. Value). Apibrėžia duomenų ekonominę vertę. Rodiklių duomenys yra labai vertingi įstaigoms, nes dažniausiai tos įstaigos užsiima tik rodiklių duomenų kaupimų ir analizė, iš techninės pusės
     ši charakteristika yra svarbi iš tos pusės, kad duomenų apdorojimo ir kaupimo sprendimai labai stipriai daro įtaką įstaigos, kaupiančios rodiklių duomenis, ekonomikai. Taip pat šių duomenys ir jų 
     analizė turi būti pasiekiama be prastovos laiko.
-\end{itemize}
+\end{itemize}\par
+
+Darbo tikslas: Eksperimento būdu išbandyti rodiklių duomenų kaupimo, transformavimo ir analizės uždavinių sprendinius, palyginant sprendimą, naudojanti reliacinę duomenų bazę, su sprendimu naudojančiu srautinį duomenų apdorojimą.
+
+Užduotys:
+\begin{enumerate}
+    \item Atlikti skirtingų srautinio duomenų apdorojimo sprendimo architektūrų analizę, ir pasirinkti vieną iš jų tyrimui.
+    \item Sukurti testavimo duomenų generatorių.
+    \item Išmatuoti duoto reliacinės duomenų bazės sprendimo pralaidumą.
+    \item Realizuoti srautinio duomenų apdorojimo architektūros rodiklių duomenų kaupimo sprendimą.
+    \item Išmatuoti srautinio duomenų apdorojimo sprendimo pralaidumą ir palyginti testavimo rezultatus.
+\end{enumerate}
+
+Eksperimento metu testuojami sprendimai bus vykdomi ne su reliais rodiklių duomenimis, o su supaprastinto uždavinio sugeneruotais duomenimis.
+% \section{Rodiklių duomenys}
+
+% \subsection{Apibrėžimas}
+
+
+% \subsection{Charakteristikos}
+
+% Apibrėžime minėjau, kad rodiklių duomenis yra didelių duomenų tipas, 
 %     Pagal apibrėžtas charakteristikas matome, kad pagrindiniai rodiklių duomenų iššūkiai yra tūris, greitis ir vertė. Todėl mūsų bandomas sprendimas turi galėti greitai susidoroti nebutinai dideliu kiekiu 
 % skirtingo pobūdžio duomenų ir turi sugebėti greitai atvaizduoti pokyčius atsiradus naujiems duomenims, taip pat turi būti įmanoma šį sprendimą paleisti į realią aplinką nepertraukiant įstaigos veiklą.
 
@@ -105,7 +105,7 @@ mums sudaro daugiausiai problemų. Šie iššūkiai apibrėžiami Gartner's Doug
 
 \subsection{Srautinis duomenų apdorojimas} \label{strprocess}
 
-    Srautinis duomenų apdorojimas (angl. Stream processing) - yra programavimo paradigma ekvivalenti seniai aprašytai duomenų tėkmės programavimo (angl. dataflow programming) paradigmai\cite{shortstreamproc}. 
+    Srautinis duomenų apdorojimas (angl. Stream processing) - yra programavimo paradigma ekvivalenti anksčiau aprašytai duomenų tėkmės programavimo (angl. dataflow programming) paradigmai\cite{shortstreamproc}. 
 Duomenų tėkmės programavimo paradigmos idėja, kad visa programa susidaro iš skirtingu modulių, kurie nepriklauso vienas nuo kito ir būtent tai leidžia sukonstruoti paraleliai skaičiuojančias programas. 
 Viena iš pirmųjų duomenų tėkmės programavimo kompiliatorių yra BLODI - blokų diagramų kompiliatorius (angl. BLOck DIagram compiler), su kuriuo buvo kompiliuojamos BLODI programavimo kalba parašytos programos. 
 Šia kalba parašytos programos atitinka inžinierinę elektros grandinės schemą, kur duomenis keliauja per komponentus kaip ir elektros grandinėje. Vienas iš šios programavimo kalbos privalumų buvo tai, 
@@ -132,9 +132,10 @@ Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia aps
         Šie reikalavimai yra sukurti tik teoriškai ir egzistuoja labai nedaug srautinio apdorojimo architektūrų atitinkančių visas šias taisykles. Tam kad išsirinkti tinkamą architektūrą sprendžiamam uždaviniui, 
         konkrečios srautinio apdorojimo architektūros yra apžvelgiamos ir lyginamos \ref{srautarch} skyriuje.
 
-\subsection{Reliacinės duomenų bazės duomenų apdorojimas}
-
-    Reliacinės duomenų bazių valdymo sistemos (angl. Relational database management systems) - tai duomenų valdymo sistema paremta reliaciniu modeliu pirmą kartą aprašytu 1969 metais\cite{codd1969derivability}.
+\subsection{Paketinis duomenų apdorojimas}
+    Paketinis duomenų apdorojimas (angl. Batch processing) - yra duomenų apdorojimo paradigma, kai duomenis yra saugomi saugykloje, o vėliau, po užklausos, apdorojami.
+    Vienas iš tokio apdorojimo sistemų pavyzdžių būtent ir yra reliacinė duomenų bazė. Reliacinės duomenų bazių valdymo sistemos (angl. Relational database management systems) - tai 
+    duomenų valdymo sistema paremta reliaciniu modeliu pirmą kartą aprašytu 1969 metais\cite{codd1969derivability}.
     Pagal \url{https://db-engines.com/en/ranking} 2018 metų birželio mėnesio rodiklius šiuo metu pagal populiarumą tarp reliacinių ir NoSQL duomenų bazių sistemų pirmos 5 vietos iš 343 yra paskirstytos atitinkamai:
     \begin{enumerate}
         \item Oracle (Reliacinė DBVS) - 1311.25
@@ -156,29 +157,29 @@ Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia aps
     jau yra didelis kiekis duomenų, kuriuos reikia apdoroti, nes procedūra apdoroja ne tik naujus bet visus duomenis, tai pažeisdama 8-tą duomenų apdorojimo taisyklė,
     ir ko pasėkoje reliacinis sprendimas analitiškai yra mažiau tinkamas rodiklių duomenų problemai.
 
-\subsection{Kiti duomenų apdorojimo tipai}
+% \subsection{Kiti duomenų apdorojimo tipai}
 
-\subsubsection{Paketinis duomenų apdorojimas}
+% \subsubsection{}
 
-Paketinis duomenų apdorojimas (angl. Batch processing) - didelių duomenų apdorojimo tipas, kai surinktas didelis duomenų kiekis nėra apdorojamas iš karto, o sukaupiamas ir vėliau apdorojamas visas iš karto. 
-Mūsų reliacinės duomenų bazės apdorojimas naudoją primityvią paketinio duomenų apdorojimo versiją. Daug geriau yra žinomas kita paketinio duomenų apdorojimo architektūra - ,,Apache Hadoop''. Ši architektūra
-naudoja ,,Google'' sukurtą ,,Map-Reduce'' konceptą\cite{dean2008mapreduce}, kuris dideli duomenų kiekį suskaido į mažus rinkinius ir daro apdorojimą paraleliai ant visų rinkinių.\cite{batchProcessing} Ši architektūra mums netinka, nes mes norime rezultatą 
-gauti tik įdėję naujų duomenų.
+% Paketinis duomenų apdorojimas (angl. Batch processing) - didelių duomenų apdorojimo tipas, kai surinktas didelis duomenų kiekis nėra apdorojamas iš karto, o sukaupiamas ir vėliau apdorojamas visas iš karto. 
+% Mūsų reliacinės duomenų bazės apdorojimas naudoją primityvią paketinio duomenų apdorojimo versiją. Daug geriau yra žinomas kita paketinio duomenų apdorojimo architektūra - ,,Apache Hadoop''. Ši architektūra
+% naudoja ,,Google'' sukurtą ,,Map-Reduce'' konceptą\cite{dean2008mapreduce}, kuris dideli duomenų kiekį suskaido į mažus rinkinius ir daro apdorojimą paraleliai ant visų rinkinių.\cite{batchProcessing} Ši architektūra mums netinka, nes mes norime rezultatą 
+% gauti tik įdėjus naujus duomenis.
 
-\subsubsection{Lambda architektūra}
+% \subsubsection{Lambda architektūra}
 
-Lambda architektūra - didelių duomenų apdorojimo architektūra naudojanti srautinio ir paketinio apdorojimo architektūrą. Su šią architektūra bandoma subalansuoti uždelstumą, pralaidumą ir klaidų tolerancija, naudojant 
-paketini apdorojimą tiksliems ir išsamiems duomenų paketams ir tuo pačiu metu naudoti srautinį apdorojimą greitai analizei\cite{hasani2014lambda}. Tačiau ši architektūra turi vieną trūkumą - norint naudoti šią architektūrą
-reikia palaikyti dvi skirtingas architektūras, kad kodas būtų atnaujinamas abiejose architektūrose vienu metu\cite{kreps2014questioning}. Vienas pavyzdys tokios architektūros būtų - Kafka žinučių sistema siunčianti duomenis į ,,Apache Storm'', 
-kur duomenis apdorojami srautu, ir ,,Apache Hadoop'', kur duomenis apdorojami paketais, ir rezultatus saugant skirtingose duomenų bazės lentelėse.
+% Lambda architektūra - didelių duomenų apdorojimo architektūra naudojanti srautinio ir paketinio apdorojimo architektūrą. Su šią architektūra bandoma subalansuoti uždelstumą, pralaidumą ir klaidų tolerancija, naudojant 
+% paketini apdorojimą tiksliems ir išsamiems duomenų paketams ir tuo pačiu metu naudoti srautinį apdorojimą greitai analizei\cite{hasani2014lambda}. Tačiau ši architektūra turi vieną trūkumą - norint naudoti šią architektūrą
+% reikia palaikyti dvi skirtingas architektūras, kad kodas būtų atnaujinamas abiejose architektūrose vienu metu\cite{kreps2014questioning}. Vienas pavyzdys tokios architektūros būtų - Kafka žinučių sistema siunčianti duomenis į ,,Apache Storm'', 
+% kur duomenis apdorojami srautu, ir ,,Apache Hadoop'', kur duomenis apdorojami paketais, ir rezultatus saugant skirtingose duomenų bazės lentelėse.
 
-\subsubsection{Kappa architektūra}
+% \subsubsection{Kappa architektūra}
 
-Kappa architektūra - tai supaprastinta lambda architektūra, kuri vietoj paketinio apdorojimo naudoja papildomą srautinio apdorojimo sistemą. Pavyzdžiui yra vienas srautinio apdorojimo darbas, kuris veikia visą laiką
-ir atvaizduoja duomenis gyvai, ir yra kitas darbas kuris paleidžiamas kas kažkiek laiko, kuris susirenka per visą tą laiką susikaupusius duomenis ir praleidžia per save srautu. Kadangi kodai yra vienodi, todėl
-nebeatsiranda anksčiau minėti iššūkiai su skirtingų sistemų palaikymu\cite{kreps2014questioning, kappa}.
+% Kappa architektūra - tai supaprastinta lambda architektūra, kuri vietoj paketinio apdorojimo naudoja papildomą srautinio apdorojimo sistemą. Pavyzdžiui yra vienas srautinio apdorojimo darbas, kuris veikia visą laiką
+% ir atvaizduoja duomenis gyvai, ir yra kitas darbas kuris paleidžiamas kas kažkiek laiko, kuris susirenka per visą tą laiką susikaupusius duomenis ir praleidžia per save srautu. Kadangi kodai yra vienodi, todėl
+% nebeatsiranda anksčiau minėti iššūkiai su skirtingų sistemų palaikymu\cite{kreps2014questioning, kappa}.
 
-\section{Srautinio apdorojimo architektūros} \label{srautarch}
+\section{Srautinių duomenų architektūrų sprendimų ypatumai} \label{srautarch}
 Šiame skyriuje palyginsime tris atviro kodo srautinio apdorojimo architektūras ,,Apache Storm'', ,,Apache Spark'' ir ,,Apache Flink'' pagal:
 \begin{itemize}
     \item Pristatymo semantika (angl. delivery semantics) - apibrėžia pagal kokį modelį bus pristatyti duomenis. Egzistuoja trys semantikos\cite{ensar20}: 
@@ -226,7 +227,8 @@ kartu pasikartojo tas pats žodis, per visą programos veikimo laiką. Todėl ab
 \end{figure} \par
 
 ,,Apache Storm'' parašytos programos yra žemo lygio abstrakcijos. \ref{fig:stormapi} pavyzdyje matome labai sumažintą programos pavyzdį. 
-Kadangi tai yra žemo lygio programa mes turime apsirašyti visus srauto apdorojimo modulius, tai yra: setSpouts(..), kur nustatoma duomenų įeiga ir koks bus paralelizmas lygis, setBolt(..), kur nustatomi apdorojimo moduliai, kokius duomenis gaus iš prieš tai buvusio modulio ir paralelizmo lygys. Žemiau, execute() metodas aprašo, kaip gali atrodyti apdorojimo modulis, kuris suskaičiuoja kiek skirtingų žodžių pro jį praėjo. Šios architektūros programų kūrimo laikas užtruks ilgiau negu kitoms architektūroms su aukštu abstrakcijos lygių, tačiau žemas abstrakcijos leidžia rašyti daug greičiau veikiančias programas, kadangi programuotojas turi pilną kontrolę.
+Kadangi tai yra žemo lygio programa mes turime apsirašyti visus srauto apdorojimo modulius, tai yra: setSpouts(..), kur nustatoma duomenų įeiga ir koks bus paralelizmas lygis, setBolt(..), kur nustatomi apdorojimo moduliai, kokius duomenis gaus iš prieš tai buvusio modulio ir paralelizmo lygis. 
+Žemiau, execute() metodas aprašo, kaip gali atrodyti apdorojimo modulis, kuris suskaičiuoja kiek skirtingų žodžių pro jį praėjo. Šios architektūros programų kūrimo laikas užtruks ilgiau negu kitoms architektūroms su aukštu abstrakcijos lygių, tačiau žemas abstrakcijos leidžia rašyti daug greičiau veikiančias programas, kadangi programuotojas turi pilną kontrolę.
 
 
 \begin{figure}[!htbp]
@@ -393,9 +395,8 @@ Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt'', nes jo negalima buvo
 \vspace{1 mm}
 
     \begin{enumerate}
-        \item Sukurtas testavimo duomenų generatorius, kurio pagalba buvo vykdomas pralaidumo testavimas.
-        \item Išbandyti skirtingi topologijų tipai ir sukurtas sprendimas su pasirinkta srautinio apdorojimo architektūra.
-        \item Atlikti pralaidumo testai sukurtam srautinio apdorojimo sprendimui, apibendrinti sprendimų pralaidumo testų rezultatai.
+        \item Sukurtas testavimo duomenų generatorius, sukurtas supaprastinto uždavinio sprendimas su reliacina duomenų baze ir su srautinio apdorojimo archiketūra.
+        \item Uždavinio sprendimai palyginti pagal pralaidumo testų rezultatus.
     \end{enumerate}
     \vspace{1 mm}
 
@@ -403,10 +404,6 @@ Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt'', nes jo negalima buvo
 \vspace{1 mm}
 
     \begin{enumerate}
-    \item Srautinio apdorojimo architektūra tinka spręsti rodiklių duomenų apdorojimo uždavinį, nes gali tai padaryti greitai, be 
-    duomenų praradimo ir dideliais kiekiais vienu metu.
-    \item Duomenų tiekimui gali būti naudojama ,,Apache Kafka'' servisas, kas leidžia užtikrinti pastovu duomenų srautą, kuris
-    perduoda duomenis be papildomo užklausimo.
     \item Eksperimento būdu pagrįsta, kad siūloma sistema gali būti įgyvendinama.
     \item Pralaidumo testavimo metu įrodyta, kad srautinio duomenų apdorojimo sprendimas apdoroja duomenis greičiau nei reliacinių duomenų
     bazės sprendimas ir nėra priklausomas nuo kitų tuo pačiu metu vykdomų procesų
