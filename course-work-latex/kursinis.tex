@@ -52,15 +52,15 @@
 
 \sectionnonum{Įvadas}
 
-    Šiame darbe rodiklių duomenis laikysime didelių duomenų tipu, kur duomenis galime transformuoti ir analizuoti ir sugrupuoti pagal rodiklius, 
-pavyzdžiui: bazinė mėnesio alga, mirusiųjų skaičius pagal mirties priežastis, krituliai per metus. Šie duomenys yra saugomi reliacinėse duomenų bazėse, 
-kur užklausus vartotojui apdorojami ir grąžinami.\par
+    Šiame darbe rodiklių duomenys yra apibrėžti kaip didelių duomenų tipas. Šiuos duomenis galima transformuoti, analizuoti ir grupuoti pagal pasirinktus rodiklius, 
+pavyzdžiui: bazinė mėnesio alga, mirusiųjų skaičius pagal mirties priežastis, krituliai per metus. Šie duomenys yra saugomi reliacinėse duomenų bazėse,
+o užklausus vartotojui apdorojami ir grąžinami.\par
 Lietuvoje rodiklių duomenų bazės pavyzdys yra ,,Lietuvos statistikos departamento" duomenų bazė, kurioje užklausas galima vykdyti
 \url{https://osp.stat.gov.lt/statistiniu-rodikliu-analize#/} puslapyje, kuris leidžia ieškoti duomenis apdorotus pagal vieną arba kelis rodiklius. 
 Kitas pavyzdys yra ,,DataBank" \url{http://databank.worldbank.org} - pasaulinio lygio rodiklių duomenų bazių rinkinys, turintis 69 skirtingas 
 duomenų bazes, pavyzdžiui - ,,World development indicators", ,,Gander statistics"\cite{databank-stats}. \par
 Šiuo metu pasaulyje yra aktuali didelių duomenų (angl. Big data) tema, kuri yra susijusi su tokiais iššūkiais kaip didelių duomenų kiekių saugojimas, 
-transformacija, analizė. Rodiklių duomenims galime pritaikyti dalį didelių duomenų charakteristikų 
+transformacija, analizė. Rodiklių duomenims galima pritaikyti dalį didelių duomenų charakteristikų 
 ir apsibrėžti, kurios iš jų mums sukelia daugiausiai iššūkių. Didelių duomenų iššūkiai yra apibrėžti Gartner's Doug Laney pristatytu 3V modeliu\cite{laney20013d},
 kuris vėliau buvo papildytas Bernard Marr iki 5V modelio\cite{marr2014big}:
 \begin{itemize}
@@ -71,16 +71,17 @@ kuris vėliau buvo papildytas Bernard Marr iki 5V modelio\cite{marr2014big}:
     tikti skirtingiems rodikliams, yra generuojami pastoviai.
     \item Įvairovė (angl. Variety). Apibrėžia duomenų tipus. Duomenys gali būti: struktūrizuoti, nestruktūrizuoti arba dalinai struktūrizuoti\cite{zikopoulos2011understanding}. 
     Rodiklių duomenys yra struktūrizuoti, todėl tai nėra aktualus iššūkis.
-    \item Tikrumas (angl. Veracity). Apibrėžia duomenų teisingumą ir kokybę. Pavyzdžiui, jeigu analizuotume ,,Twitter" socialinio tinklo žinučių turinį gautume daug gramatikos klaidų, naujadarų, slengo. 
+    \item Tikrumas (angl. Veracity). Apibrėžia duomenų teisingumą ir kokybę. Pavyzdžiui, jeigu būtų analizuojamas ,,Twitter" socialinio tinklo žinučių turinys, būtų gauta
+    daug gramatikos klaidų, naujadarų, slengo. 
     Statistinio departamento atveju duomenys visada, kiek įmanoma, bus tvarkingi, kadangi tai yra duomenys surinkti iš dokumentų ir apklausų, o ne laisvai įvedami.
     \item Vertė (angl. Value). Apibrėžia duomenų ekonominę vertę. Rodiklių duomenys yra vertingi įstaigoms, nes tos įstaigos užsiima tik rodiklių duomenų kaupimų ir analizė, iš techninės pusės
-    ši charakteristika yra svarbi iš tos pusės, kad duomenų apdorojimo ir kaupimo sprendimai daro įtaką įstaigos, kaupiančios rodiklių duomenis, veiklai. 
-    Todėl šie apdoroti duomenis turi būti pasiekiami be prastovos laiko.
+    ši charakteristika yra svarbi, nes duomenų apdorojimo ir kaupimo sprendimai daro įtaką įstaigoms, kaupiančioms rodiklių duomenis, veiklai. 
+    Todėl šie apdoroti duomenys turi būti pasiekiami be prastovos laiko.
 \end{itemize}\par
 
 Darbo tikslas: Eksperimento būdu išbandyti rodiklių duomenų kaupimo, transformavimo ir analizės uždavinių sprendinius, 
 palyginant sprendimą, naudojanti reliacinę duomenų bazę, su sprendimu naudojančiu srautinį duomenų apdorojimą. \par
-
+\newpage
 Užduotys:
 \begin{enumerate}
     \item Atlikti skirtingų srautinio duomenų apdorojimo sprendimo architektūrų analizę, ir pasirinkti vieną iš jų tyrimui.
@@ -90,7 +91,7 @@ Užduotys:
     \item Išmatuoti srautinio duomenų apdorojimo sprendimo pralaidumą ir palyginti testavimo rezultatus.
 \end{enumerate}
 
-Eksperimento metu testuojami sprendimai bus vykdomi ne su tikrais rodiklių duomenimis, o su supaprastinto uždavinio sugeneruotais duomenimis.
+Eksperimento metu testuojami sprendimai buvo vykdomi ne su tikrais rodiklių duomenimis, o su supaprastinto uždavinio sugeneruotais duomenimis.
 
 \section{Duomenų apdorojimo tipai}
 
@@ -104,7 +105,7 @@ kad ją galėjo išmokti žmonės, kurie nebuvo programavimo ekspertai\cite{kell
 Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia apsibrėžti srautinio apdorojimo sistemų galimybes.
 2005 metais Michael Stonebraker apibrėžė 8 taisyklės realaus-laiko srautinio duomenų apdorojimo architektūroms\cite{stonebraker20058}:
 \begin{enumerate}[label=\arabic*]
-    \item taisyklė: Duomenys turi judėti. Kad būtų užtikrinta žemas uždelsdamas sistema turi apdoroti duomenis nenaudojant duomenų saugojimo operacijas. Taip pat sistema turi ne pati užklausti duomenų, o gauti juos
+    \item taisyklė: Duomenys turi judėti. Žemo uždelstumo užtikrinimui sistema turi apdoroti duomenis nenaudojant duomenų saugojimo operacijas. Taip pat sistema turi ne pati užklausti duomenų, o gauti juos
     iš kito šaltinio automatiškai. 
     \item taisyklė: Duomenų transformacijos turi būti vykdomas SQL pobūdžio užklausomis. Žemo lygio srautinio apdorojimo sistemos reikalauja ilgesnio programavimo laiko ir brangesnio palaikymo. Tuo tarpu aukšto lygio sistema 
     naudojanti SQL užklausas, kurias žino dauguma programuotojų ir naudojama daug skirtingų sistemų, leidžia efektyviau kurti srautinio apdorojimo sprendimus.
@@ -117,8 +118,8 @@ Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia aps
     sistemą ir tęsti darbą toliau. Taip pat tokios klaidos atveju atsarginė sistema turi būti apdorojusi visus duomenis ir sugebėti iš karto priimti naujus duomenis, o ne apdoroti duomenis iš pradžių.
     \item taisyklė: Architektūra turi užtikrinti sugebėjimą paskirstyti sistemos darbus automatiškai. Srautinio apdorojimo sistemos turi palaikyti kelių procesoriaus gijų operacijas. Taip pat sistema turi galėti 
     veikti ant kelių kompiuterių vienu metu ir prireikus paskirstyti resursus pagal galimybes.
-    \item taisyklė: Architektūra turi apdoroti ir atsakyti momentaliai. Anksčiau minėtos taisyklės nėra svarbius, jeigu sistema nesugeba greitai susidoroti su dideliu kiekiu naujų duomenų. Kad tai sistema
-    pasiektu turi būti naudojamas ne tik teisingas ir greitas srautinio apdorojimo sprendimas, bet ir gerai optimizuota sistema.
+    \item taisyklė: Architektūra turi apdoroti ir atsakyti akimirksniu. Anksčiau minėtos taisyklės nėra svarbios, jeigu sistema nesugeba greitai susidoroti su didelių kiekių naujų duomenų. 
+    Todėl turi būti naudojamas ne tik teisingas ir greitas srautinio apdorojimo sprendimas, bet ir gerai optimizuota sistema.
 \end{enumerate}\par
         Šie reikalavimai yra sukurti tik teoriškai ir egzistuoja labai nedaug srautinio apdorojimo architektūrų atitinkančių visas šias taisykles. Tam kad išsirinkti tinkamą architektūrą sprendžiamam uždaviniui, 
         konkrečios srautinio apdorojimo architektūros yra apžvelgiamos ir lyginamos \ref{srautarch} skyriuje.
@@ -142,15 +143,15 @@ Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia aps
     pasisamdyti naują žmogų mokanti dirbti su šia sistema arba apmokyti esamą. \par
         Reliacinių duomenų bazių duomenų apdorojimo būdas yra Procedūros(angl. stored procedures), kurios aprašomos SQL kalba ir gali apdoroti duomenis tiesiai iš duomenų bazės 
     naudojant reliacinę matematiką. Tačiau jeigu pažiūrėsimi į procedūrą, kaip duomenų apdorojimo architektūrą pagal \ref{strprocess} skyriuje apibrėžtas 8 taisykles, 
-    matysime, kad ji neatitinką: 1-os taisyklės: Duomenys turi judėti. Procedūros yra leidžiamos tik vartotojui užklausus, todėl šis reikalavimas yra neišpildytas, 
-    ir 7-os taisyklės: Architektūra turi užtikrinti sugebėjimą paskirstyti sistemos darbus automatiškai. Didžioji dalis reliacinių duomenų bazių nepalaiko horizontalų 
-    plečiamumą\cite{cattelsql, jkubas} ir todėl viena sistema gali apdoroti tik pas ją esančius duomenis. Svarbiausiai, procedūra negali apdoroti greitai naujų duomenų jeigu duomenų bazėje 
-    jau yra didelis kiekis duomenų, kuriuos reikia apdoroti, nes procedūra apdoroja ne tik naujus bet visus duomenis, tai pažeisdama 8-tą duomenų apdorojimo taisyklė,
-    ir ko pasėkoje reliacinis sprendimas analitiškai yra mažiau tinkamas rodiklių duomenų problemai.
+    matysime, jog procedūra neatitinka 1-os taisyklės, kuri teigia, kad duomenys turi judėti. Procedūros yra leidžiamos tik vartotojui užklausus, todėl šis reikalavimas yra neišpildytas, 
+    ir 7-os taisyklės, kuri teigia, kad architektūra turi užtikrinti sugebėjimą paskirstyti sistemos darbus automatiškai. Didžioji dalis reliacinių duomenų bazių nepalaiko horizontalų 
+    plečiamumą\cite{cattelsql, jkubas} ir todėl viena sistema gali apdoroti tik pas ją esančius duomenis. Svarbiausia, procedūra negali apdoroti naujų duomenų greitai, jeigu duomenų bazėje 
+    jau yra didelis kiekis duomenų, kuriuos reikia apdoroti, nes procedūra apdoroja ne naujai atėjusius, o visus duomenis, ir taip pažeidžia 8-tą duomenų apdorojimo taisyklę todėl reliacinis sprendimas
+    analitiškai yra mažiau tinkamas rodiklių duomenų problemai.
 
 
 \section{Srautinio duomenų apdorojimo architektūrų sprendimų ypatumai} \label{srautarch}
-Šiame skyriuje palyginsime tris atviro kodo srautinio apdorojimo architektūras ,,Apache Storm", ,,Apache Spark" ir ,,Apache Flink" pagal:
+Šiame skyriuje lyginamos trys atviro kodo srautinio apdorojimo architektūros ,,Apache Storm", ,,Apache Spark" ir ,,Apache Flink" pagal:
 \begin{itemize}
     \item Pristatymo semantika (angl. delivery semantics) - apibrėžia pagal kokį modelį bus pristatyti duomenys. Egzistuoja trys semantikos\cite{ensar20}: 
     \begin{itemize}
@@ -166,19 +167,19 @@ Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia aps
 \subsection{Pristatymo semantika}
 ,,Apache Spark" ir ,,Apache Storm" architektūrų pristatymo semantika yra tiksliai vieną kartą (angl. Exactly-once), tai reiškia, kad visi 
 duomenys bus apdoroti tik vieną kartą. Tačiau tam, kad užtikrinti šią semantiką architektūra sunaudoja daug resursų, nes reikia užtikrinti, kad 
-operacija bus vykdoma būtent vieną kartą kiekviename srautinio apdorojimo žingsnyje: duomenų gavime, kas stipriai priklauso nuo duomenų šaltinio,
-duomenų transformacijos, kuri turi užtikrinti pati srautinio apdorojimo architektūra ir duomenų saugojime, kas turi būti užtikrinta architektūros ir
+operacija bus vykdoma būtent vieną kartą kiekviename srautinio apdorojimo žingsnyje: duomenų gavime, kuris stipriai priklauso nuo duomenų šaltinio,
+duomenų transformacijos, kuri turi užtikrinti pati srautinio apdorojimo architektūra ir duomenų saugojime, tai turi būti užtikrinta architektūros ir
 naudojamos saugyklos\cite{zhang20}.\par
-    ,,Apache Storm" pristatymo semantika yra bent viena kartą (angl. at-least-once), kas reiškia, kad per šią architektūra leidžiami duomenys 
-visada pasieks pabaigą, tačiau kartais gali dubliuotis\cite{prithi20}. Jeigu sprendimas reikalauja tiksliai vieno karto apdorojimo, tada mes turime rinktis arba vieną 
-iš aukščiau minėtų architektūrų arba ,,Apache Storm Trident" - ant ,,Apache storm" architektūros pastatyta aukšto abstrakcijos lygio architektūra 
+    ,,Apache Storm" pristatymo semantika yra bent viena kartą (angl. at-least-once), tai reiškia, kad per šią architektūra leidžiami duomenys 
+visada pasieks pabaigą, tačiau kartais gali dubliuotis\cite{prithi20}. Jeigu sprendimas reikalauja tiksliai vieno karto apdorojimo, tada turi būti išrinkta
+ arba vieną iš aukščiau minėtų architektūrų arba ,,Apache Storm Trident" - ant ,,Apache storm" architektūros pastatyta aukšto abstrakcijos lygio architektūra 
 galinti užtikrinti tiksliai vieno karto apdorojimą. Tačiau jei uždavinys to nereikalauja, greičio, ypač uždelstume, atveju daug geriau pasirinkti 
 pigesnę pristatymo semantiką\cite{zhang20}.
 \subsection{Uždelstumas}
-    Uždelstumas, srautinio apdorojimo architektūroms yra matuojamas milisekundėmis, kas parodo kaip greitai architektūra įvykdo vieną operaciją. 
-Pagal Martin Andreoni Lopez darytus bandymus su šiomis architektūromis galime matyti, kad būtent ,,Apache Storm" turi mažiausią uždelstumą,
+    Uždelstumas, srautinio apdorojimo architektūroms yra matuojamas milisekundėmis, tai parodo kaip greitai architektūra įvykdo vieną operaciją. 
+Pagal Martin Andreoni Lopez darytus bandymus su šiomis architektūromis galima matyti, kad būtent ,,Apache Storm" turi mažiausią uždelstumą,
 parinkus teisingai paralelizmo parametrą ši architektūra su užduotimi susidorojo net iki 15 kartų greičiau. Antroje vietoje liko ,,Apache Flink", o po jos
-,,Apache Spark"\cite{Lopez2016APC}. Tačiau kai architektūra turi žemą uždelstumą, tai ji turės taip pat ir žemą pralaidumą, kas nėra gerai, 
+,,Apache Spark"\cite{Lopez2016APC}. Tačiau kai architektūra turi žemą uždelstumą, tai ji turės taip pat ir žemą pralaidumą, tai nėra gerai, 
 kai norima apdoroti daug duomenų iš karto.
 
 \subsection{Pralaidumas}
@@ -189,7 +190,7 @@ pralaidumo atveju ir paskutinis liko ,,Apache Storm", kuris turi žemą uždelst
 \subsection{Abstrakcijos lygis}
 
 ,,Apache Storm" parašytos programos yra žemo lygio abstrakcijos. 
-Kadangi tai yra žemo lygio programa mes turime apsirašyti visus srauto apdorojimo modulius, 
+Kadangi tai yra žemo lygio programa, turi būti aprašyti visus srautinio apdorojimo modulius, 
 tai yra: setSpouts(..), kur nustatoma duomenų įeiga ir koks bus paralelizmas lygis, setBolt(..), kur nustatomi apdorojimo moduliai,
 kokius duomenis gaus iš prieš tai buvusio modulio ir paralelizmo lygis. Kiekvieno modulio execute() metodas aprašo, kaip šis modulis 
 turi apdoroti duomenis\cite{tutpoint}. Šios architektūros programų kūrimo laikas užtruks ilgiau negu kitoms architektūroms su aukštu abstrakcijos lygių,
@@ -205,7 +206,7 @@ architektūra pati užsiima resursų distribucija, todėl programuotojui lieka t
 tai reiškia, kad su šia architektūra parašytos programos nepavyks optimizuoti taip pat gerai kaip žemo lygio abstrakcijos architektūros.
 
 \subsection{Apibendrinimas}
-Iš šių trijų architektūrų reikia pasirinkti vieną, kuri labiausiai tiks rodiklių duomenų apdorojimui. Ši architektūra turi sugebėti greitai apdoroti duomenis,
+Iš šių trijų architektūrų reikėjo pasirinkti vieną, kuri labiausiai tiks rodiklių duomenų apdorojimui. Ši architektūra turi sugebėti greitai apdoroti duomenis,
 prioretizuojant greiti virš tikslumo, kadangi vienas iš pagrindinių naudotojų yra statistiką renkančios įstaigos, kurios gali sau leisti tam tikrą paklaidą,
 ir programuotojas turi galėti aprašyti daug skirtingų sprendimų skirtingiems rodikliams.\par
 
@@ -224,9 +225,9 @@ ir programuotojas turi galėti aprašyti daug skirtingų sprendimų skirtingiems
     \end{center}
 \end{table}\par
 
-Kaip matome iš atliktos analizės \ref{table:comparer} lentelėje ir apsibrėžtų reikalavimų, mums labiausiai tinkanti srautinio apdorojimo architektūra yra ,,Apache Storm". 
-Nors jos pralaidumas yra žemas, mums daug aktualiau yra greitis, taip pat žemas abstrakcijos lygis leis daug geriau optimizuoti sprendimą su šia architektūra. Su ją kursime
-sprendimą, kurį lyginsime su reliacinės duomenų bazės sprendimu.
+Pagal atlikta analizę \ref{table:comparer} lentelėje ir apsibrėžtų reikalavimų, mums labiausiai tinkanti srautinio apdorojimo architektūra yra ,,Apache Storm". 
+Nors jos pralaidumas yra žemas, mums daug aktualiau yra greitis, taip pat žemas abstrakcijos lygis leis daug geriau optimizuoti sprendimą su šia architektūra. Su ją autorius
+sukurė sprendimą, kurį lygins su reliacinės duomenų bazės sprendimu.
 
 \section{Eksperimentinė sistema}
 
@@ -252,7 +253,7 @@ Testavimo duomentų generavimo sistema yra sudaryta iš dviejų dalių: ,,Python
 Su ,,Python" kalba parašytas duomenų generatorius, kuris sukuria nustatytą kiekį duomenų, naudojant ,,random" biblioteką ir, kai apibrėžtas kiekis duomenų sugeneruotas,
  po vieną siunčia į ,,Apache Kafka" žinučių sistemą, naudojant ,,kafka-python" biblioteką. Generuojami duomenys yra pritaikyti skirtingiems sprendimams.
 Į srautinio apdorojimo sistemą siunčiami tik duomenys, kuriuos reikia apdoroti ir raktas pagal kurį apdoroti duomenys aggreguojami, o į reliacinės duomenų
-bazės sprendimą siunčiami tik vienos iš lentelių pirminis raktas kuris parenkamas atsitiktiniai iš visų įmanomų, ir nauja duomenį. Duomenų siuntimas į 
+bazės sprendimą siunčiami tik vienos iš lentelių pirminis raktas, kuris parenkamas atsitiktiniai iš visų įmanomų raktų, ir naujas duomo. Duomenų siuntimas į 
 žinučių sistemą vykdomas nepertraukiamai.  \par
 
 ,,Apache Kafka" - tai servisas gaunantis, saugojantis ir siunčiantis duomenis, kurie yra vadinami žinutėmis (angl. messages). Žinutės yra skirstomos pagal temas (angl. topics).
@@ -261,10 +262,10 @@ prie temų, kad gautu su jomis susijusias žinutes\cite{thein2014apache}.  Taip 
 tam kad bendrauti su ,,Apache Kafka" būtų įmanoma su bet kokia programavimo kalba. Bet dėl to nukenčia greitaveiką kadangi prisideda
 papildomas darbas - konvertavimas iš teksto į reikiamą objektą.\par
 %,,Apache Kafka" architektūra yra mums aktuali, nes ji laiko visas žinutes savo atmintyje, todėl tą pačią žinutę gali perskaityti keli vartotojai.
-Ši testavimo duomenų generavimo sprendimas tinka srautinio apdorojimo sprendimams, kadangi jis siunčia žinutes,
+Šis testavimo duomenų generavimo sprendimas tinka srautinio apdorojimo sprendimams, kadangi jis siunčia žinutes,
 kai tik gauna duomenis ir todėl duomenų apdorojimas gali vykti iš karto, o ne tada, kai sistema užklausia. Taip pat ,,Pyhton" programos sugeneruotus duomenis galime
 be sunkūmų apdoroti su srautinio apdorojimo sprendimu, kuris yra parašytas bet kokia kita programavimo kalba. 
-Mūsų sukurtas reliacinių duomenų bazės sprendimas taip pat naudoja ,,Apache Kafka". Nors ir reliacinės duomenų bazės sprendimo atžvilgiu, ši architektūra yra perteklinė, 
+Autoriaus sukurtas reliacinių duomenų bazės sprendimas taip pat naudoja ,,Apache Kafka". Nors ir reliacinės duomenų bazės sprendimo atžvilgiu, ši architektūra yra perteklinė, 
 tačiau net pridėjus šį papildomą sluoksnį duomenų įrašymas sulėtėja nežymiai.\par
 
 \subsubsection{Srautinio duomenų apdorojimo sprendimo realizacija}
@@ -277,8 +278,7 @@ kurio pagalba užtikrina, kad duomenys sėkmingai nuėjo iki sekančio žingsnio
 \begin{enumerate}
     \item ,,kafka-spout" - ,,Spout" modulis, kuris gauna duomenis iš ,,Apache Kafka" žinučių sistemos ir perduoda juos po jo einančiam ,,Bolt" moduliui.
     \item ,,calculate-price-bolt" - ,,Bolt" modulis, kuris gauna tekstinio tipo duomenis iš ,,kafka-spout" ir apdoroja vieną atejusį ,,Tuple".
-    \item ,,aggregate-price-bolt" - ,,Bolt" modulis, kuris gauna apdorota ,,Tuple" iš ,,calculate-price-bolt" ir įdeda jį į ,,HashMap" tipo sąrašą ir visą sąrašą, 
-    kas nustatytą laiko tarpą spausdina į tekstinį dokumentą.  
+    \item ,,aggregate-price-bolt" - ,,Bolt" modulis, kuris gauna apdorota ,,Tuple" iš ,,calculate-price-bolt" ir įdeda jį į ,,HashMap" tipo sąrašą ir visą sąrašą kas nustatytą laiko tarpą spausdina į tekstinį dokumentą.  
 \end{enumerate}\par
 Kadangi ,,Apache Storm" yra žemo lygio architektūra programuotojas turi pats numatyti paralelizmo lygi kiekviename modulyje. 
 Po bandymų buvo nuspręsta modelių konfigūraciją daryti tokią: ,,kafka-spout" - 5 paralelus procesai, ,,calculate-price-bolt"
@@ -291,22 +291,22 @@ kurio keitimas iš kelių gijų sugadina duomenis. Srautinio sprendimo greitavei
 
  \subsubsection{Reliacinės duomenų bazės sprendimo realizacija}
 
-Reliacinės duomenų bazės realizavimui pasirinkta ,,Microsoft SQL Server" duomenų bazė, o duomenų apdorojimui parašyta procedūra (angl. stored procedure) ,,GetReports".
-Sukurta minimali duomenų bazė, su 3 lentelėmis (\ref{fig:dbdiagram} pav.) Sukurta procedūra ,,GetReports" sujungia šias tris lenteles į vieną, kurioje yra parodoma kiekvienos 
-parduotuvės (Shop) uždirbtus pinigus pagal nesudėtingą sumavimo formulę.
+Reliacinės duomenų bazės realizavimui buvo pasirinkta ,,Microsoft SQL Server" duomenų bazė, o duomenų apdorojimui parašyta procedūra (angl. stored procedure) ,,GetReports".
+Sukurta minimali duomenų bazė, su 3 lentelėmis (\ref{fig:dbdiagram} pav.). Sukurta procedūra ,,GetReports" sujungia šias tris lenteles į vieną, kurioje yra parodoma kiekvienos 
+parduotuvės (Shop) uždirbti pinigus pagal nesudėtingą sumavimo formulę.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=1\textwidth]{img/dbdiagram.jpg}
     \caption{Reliacinė duomenų bazė testavimui}
     \label{fig:dbdiagram}
 \end{figure}
-Kad duomenys iš generatoriaus patektų į duomenų bazę sukurta programa su ,,Python" kalba kuri gauna duomenis iš ,,Apache Kafka" žinučių sistemos ir talpina jas
+Kad duomenys iš generatoriaus patektų į duomenų bazę buvo sukurta programa su ,,Python" kalba kuri gauna duomenis iš ,,Apache Kafka" žinučių sistemos ir talpina jas
 duomenų bazėje, kiekviena gauta JSON užkoduota žinutė yra paverčiama į ,,Python" žodyno (angl. dictonary) tipą ir įdedama į įvedimo užklausą, kuri iškarto yra 
 įvykdoma duomenų bazėje. Tokiu budu užtikrinamas nepertraukiamas duomenų įvedimas į reliacinė duomenų bazę.\par
-Procedūros testavimui bus naudojama papildoma ,,Python" kalba parašyta programa, kuri gavusi žinutę iš ,,Apache Kafka" sistemos sukurs įdėjimo užklausą į duomenų bazę.
-Taip pat ,,GetReports" procedūros iškvietimui yra naudojama ,,Pyhton" kalba parašyta programa, kuri periodiškai kviečia šią procedūrą. 
-Kadangi mes negalime testuoti procedūros taip pat kaip srautinio apdorojimo sprendimą, mes darysime šį testą kitaip.
-Vienų metų bus įvedami nauji duomenys ir tuo pačiu metu, su tam tikru laiko intervalu, kviečiama procedūra ir bus tikrinima:
+Procedūros testavimui buvo naudojama papildoma ,,Python" kalba parašyta programa, kuri gavusi žinutę iš ,,Apache Kafka" sistemos sukuria įdėjimo užklausą į duomenų bazę.
+Taip pat ,,GetReports" procedūros iškvietimui buvo naudojama ,,Python" kalba parašyta programa, kuri periodiškai kviečia šią procedūrą. 
+Kadangi negalima testuoti procedūros taip pat kaip srautinio apdorojimo sprendimą, šis testas bus daromas kitaip.
+Vienu metu buvo įvedami nauji duomenys ir tuo pat metu, tam tikru laiko intervalu, kviečiama procedūra ir buvo tikrinima:
     \begin{enumerate}
         \item Kiek duomenų per sekundę galima įdėti į duomenų bazę.
         \item Kiek sekundžių suletėja procedūra, kai yra pastoviai įvedami nauji duomenys.
@@ -331,10 +331,10 @@ Kompiuterio komponentų ir programų versijų su kuriais buvo vykdomas eksperime
 \end{table}\par
 
 \subsubsection{Reliacinės duomenų bazės sprendimo eksperimento vykdymas}
-Pradinėje duomenų bazėje egzistuoja 2,000 parduotuvių (Shop), kurios turi 0 arba daugiau prekių, 1,000,000 prekių (Product), kurios turi 0 arba daugiau pirkimų ir 10,000,000 pirkimų (Buys).
-Prieš pradedant eksperimentą išmatuota, kiek užtrunka ,,GetReports" procedūra, neapkraunant duomenų bazės kitais veiksmais, ir per kiek laiko užtrunka visų duomenų įdėjimas,
+Į pradinę duomenų bazę buvo įrašyti: 2,000 parduotuvių (Shop), kurios turi 0 arba daugiau prekių, 1,000,000 prekių (Product), kurios turi 0 arba daugiau pirkimų ir 10,000,000 pirkimų (Buys).
+Prieš pradedant eksperimentą buvo išmatuota, kiek užtrunka ,,GetReports" procedūra, neapkraunant duomenų bazės kitais veiksmais, ir kiek laiko užtrunka visų duomenų įdėjimas,
 nedarant kitų užklausų. 
-Eksperimento eiga su reliacine duomenų baze atrodo taip:
+Eksperimento eiga su reliacine duomenų bazės sprendimu:
 \begin{enumerate} 
 \item Paleidžiama ,,Python" programa gaunanti žinutes iš ,,Apache Kafka" žinučių sistemos ir įvedanti tuos duomenis į duomenų bazę. 
 \item Paleidžiama programa kviečianti procedūrą ,,GetReports" ir nustatyta, kad ji procedūrą kviestų kas 5 sekundes norint simuliuoti realią apkrovą,
@@ -345,7 +345,7 @@ po kiekvieno kvietimo ji fiksuoja kiek laiko užtrūko ir kelintą kartą ji yra
 
 Prieš pradedant testavimą į sistemą buvo sugeneruoti 10,000,000 įrašų, kad būtų sudarytos sąlygos panašios kaip ir reliacinės duomenų bazės.
 Šiai sistemai pagal nutylėjimą buvo išskirti 832 megabaitai operatyvios atminties (angl. RAM). 
-Eksperimento eiga su srautinių duomenų apdorojimu atrodo taip:
+Eksperimento eiga su srautinio duomenų apdorojimo sprendimu:
 \begin{enumerate} 
 \item Paleidžiama ,,Apache Storm" sistema ir į ją užkraunama sukurta topologija.
 \item Paleidžiamas testavimo duomenų generatorius.
@@ -365,16 +365,16 @@ Eksperimento eiga su srautinių duomenų apdorojimu atrodo taip:
     \end{center}
 \end{table}\par
 \subsubsection{Reliacinės duomenų bazės sprendimo eksperimento rezultatai}
-Tiesiog kviečiant procedūrą ,,GetReports" trunka vidutiniškai 12 sekundžių. Kviečiant įdėjimo funkciją, be jokios kitos apkrovos ant duomenų bazės - 1,5 milijonų duomenų
+Tiesiog kviečiama procedūrą ,,GetReports" trunka vidutiniškai 12 sekundžių. Leidžiant įdejimo užklausas, be jokios kitos apkrovos ant duomenų bazės, 1,5 milijonų duomenų
 buvo įdėti per 358 sekundžių, beveik 6 minutes. Tačiau paleidus tokį pat pastovų įrašų srautą į duomenų bazę ir bandant tuo pačiu metu gauti apdorotus duomenis,
 procedūra užtruko vidutiniškai 29 sekundes ir taip pat apdorotas duomenų sąrašas po generavimo atsiliko virš 120,000 įrašų - tiek duomenų buvo įdėta procedūros veikimo metu. 
-Per visą įdėjimo laiką procedūra ,,GetReports" buvo ivykdyta 10 kartų.
+Per visą naujų duomenų įdėjimo laiką procedūra ,,GetReports" buvo ivykdyta 10 kartų.
 Taip pat vienas iš procedūros trūkumų - įdėjus bent vieną naują duomenį ir norint gauti ataskaitą turi iš naujo būti vykdoma procedūra, kurios trukmė, kai nėra 
 paleista jokia kita užklausa, apie 12 sekundžių su testuojama duomenu imtimi.
 
 \subsubsection{Srautinio duomenų apdorojimo sprendimo eksperimento rezultatai}
 Paleista testavimo programa siunčianti 1,5 milijono duomenų neribojant siuntimo greičio, rezultatai buvo stebimi įrašais tekstiniame dokumente.
-Visi, 1,5 milijonų, duomenų buvo apdoroti per 274 sekundes, kas yra maždaug 4,5 minutės. Vidutiniška vienos operacijos trukmė nuo 
+Visi, 1,5 milijonų, duomenų buvo apdoroti per 274 sekundes, tai yra maždaug 4,5 minutės. Vidutiniška vienos operacijos trukmė nuo 
 patekimo į ,,Apache Kafka" žinučių sistemą iki galutinio pridėjimo prie bendro sąrašo - 75 milisekundės.
 Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt", nes jo negalima buvo leisti paraleliai. Šios sistemos veikimą pagreitinti 
 įmanoma tik perdavus paskutinio moduliu agregavimą į sąrašą kitai architektūrai, kadangi visus kitus veiksmus galima leisti paraleliai.
