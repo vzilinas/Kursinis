@@ -103,7 +103,7 @@ Viena iš pirmųjų duomenų tėkmės programavimo kompiliatorių yra BLODI - bl
 Šia kalba parašytos programos atitinka inžinierinę elektros grandinės schemą, kur duomenys keliauja per komponentus kaip ir elektros grandinėje. Vienas iš šios programavimo kalbos privalumų buvo tai, 
 kad ją galėjo išmokti žmonės, kurie nebuvo programavimo ekspertai\cite{kelly1961block}.\par
 Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia apsibrėžti srautinio apdorojimo sistemų galimybes.
-2005 metais Michael Stonebraker apibrėžė 8 taisyklės realaus-laiko srautinio duomenų apdorojimo architektūroms\cite{stonebraker20058}:
+2005 metais Michael Stonebraker apibrėžė 8 taisyklės realaus-laiko(angl. real-time) srautinio duomenų apdorojimo architektūroms\cite{stonebraker20058}:
 \begin{enumerate}[label=\arabic*]
     \item taisyklė: Duomenys turi judėti. Žemo uždelstumo užtikrinimui sistema turi apdoroti duomenis nenaudojant duomenų saugojimo operacijas. Taip pat sistema turi ne pati užklausti duomenų, o gauti juos
     iš kito šaltinio automatiškai. 
@@ -227,7 +227,7 @@ ir programuotojas turi galėti aprašyti daug skirtingų sprendimų skirtingiems
 
 Pagal atlikta analizę \ref{table:comparer} lentelėje ir apsibrėžtų reikalavimų, mums labiausiai tinkanti srautinio apdorojimo architektūra yra ,,Apache Storm". 
 Nors jos pralaidumas yra žemas, mums daug aktualiau yra greitis, taip pat žemas abstrakcijos lygis leis daug geriau optimizuoti sprendimą su šia architektūra. Su ją autorius
-sukurė sprendimą, kurį lygins su reliacinės duomenų bazės sprendimu.
+sukūrė sprendimą, kurį lygins su reliacinės duomenų bazės sprendimu.
 
 \section{Eksperimentinė sistema}
 
@@ -248,12 +248,12 @@ procedūra. Eksperimento tikslas - išmatuoti ir palyginti abiejų sistemų grei
 
 \subsubsection{Testavimo duomenų generavimo sprendimo realizacija}
 
-Testavimo duomentų generavimo sistema yra sudaryta iš dviejų dalių: ,,Python" kalba parašytas duomenų generatorius ir siuntėjas į žinučių sistemą ir
+Testavimo duomenų generavimo sistema yra sudaryta iš dviejų dalių: ,,Python" kalba parašytas duomenų generatorius ir siuntėjas į žinučių sistemą ir
 ,,Apache Kafka" žinučių sistema, kuri yra atsakinga už duomenų perdavimą iš generatoriaus į kitus modulius.\par
 Su ,,Python" kalba parašytas duomenų generatorius, kuris sukuria nustatytą kiekį duomenų, naudojant ,,random" biblioteką ir, kai apibrėžtas kiekis duomenų sugeneruotas,
  po vieną siunčia į ,,Apache Kafka" žinučių sistemą, naudojant ,,kafka-python" biblioteką. Generuojami duomenys yra pritaikyti skirtingiems sprendimams.
-Į srautinio apdorojimo sistemą siunčiami tik duomenys, kuriuos reikia apdoroti ir raktas pagal kurį apdoroti duomenys aggreguojami, o į reliacinės duomenų
-bazės sprendimą siunčiami tik vienos iš lentelių pirminis raktas, kuris parenkamas atsitiktiniai iš visų įmanomų raktų, ir naujas duomo. Duomenų siuntimas į 
+Į srautinio apdorojimo sistemą siunčiami tik duomenys, kuriuos reikia apdoroti ir raktas pagal kurį apdoroti duomenys agreguojami, o į reliacinės duomenų
+bazės sprendimą siunčiami tik vienos iš lentelių pirminis raktas, kuris parenkamas atsitiktiniai iš visų įmanomų raktų, ir naujas duomuo. Duomenų siuntimas į 
 žinučių sistemą vykdomas nepertraukiamai.  \par
 
 ,,Apache Kafka" - tai servisas gaunantis, saugojantis ir siunčiantis duomenis, kurie yra vadinami žinutėmis (angl. messages). Žinutės yra skirstomos pagal temas (angl. topics).
@@ -264,7 +264,7 @@ papildomas darbas - konvertavimas iš teksto į reikiamą objektą.\par
 %,,Apache Kafka" architektūra yra mums aktuali, nes ji laiko visas žinutes savo atmintyje, todėl tą pačią žinutę gali perskaityti keli vartotojai.
 Šis testavimo duomenų generavimo sprendimas tinka srautinio apdorojimo sprendimams, kadangi jis siunčia žinutes,
 kai tik gauna duomenis ir todėl duomenų apdorojimas gali vykti iš karto, o ne tada, kai sistema užklausia. Taip pat ,,Pyhton" programos sugeneruotus duomenis galime
-be sunkūmų apdoroti su srautinio apdorojimo sprendimu, kuris yra parašytas bet kokia kita programavimo kalba. 
+be sunkumų apdoroti su srautinio apdorojimo sprendimu, kuris yra parašytas bet kokia kita programavimo kalba. 
 Autoriaus sukurtas reliacinių duomenų bazės sprendimas taip pat naudoja ,,Apache Kafka". Nors ir reliacinės duomenų bazės sprendimo atžvilgiu, ši architektūra yra perteklinė, 
 tačiau net pridėjus šį papildomą sluoksnį duomenų įrašymas sulėtėja nežymiai.\par
 
@@ -277,7 +277,7 @@ kurio pagalba užtikrina, kad duomenys sėkmingai nuėjo iki sekančio žingsnio
 Šiam uždaviniu spręsti buvo pasirinkta sukurti:
 \begin{enumerate}
     \item ,,kafka-spout" - ,,Spout" modulis, kuris gauna duomenis iš ,,Apache Kafka" žinučių sistemos ir perduoda juos po jo einančiam ,,Bolt" moduliui.
-    \item ,,calculate-price-bolt" - ,,Bolt" modulis, kuris gauna tekstinio tipo duomenis iš ,,kafka-spout" ir apdoroja vieną atejusį ,,Tuple".
+    \item ,,calculate-price-bolt" - ,,Bolt" modulis, kuris gauna tekstinio tipo duomenis iš ,,kafka-spout" ir apdoroja vieną atėjusį ,,Tuple".
     \item ,,aggregate-price-bolt" - ,,Bolt" modulis, kuris gauna apdorota ,,Tuple" iš ,,calculate-price-bolt" ir įdeda jį į ,,HashMap" tipo sąrašą ir visą sąrašą kas nustatytą laiko tarpą spausdina į tekstinį dokumentą.  
 \end{enumerate}\par
 Kadangi ,,Apache Storm" yra žemo lygio architektūra programuotojas turi pats numatyti paralelizmo lygi kiekviename modulyje. 
@@ -286,7 +286,7 @@ Po bandymų buvo nuspręsta modelių konfigūraciją daryti tokią: ,,kafka-spou
 kurio keitimas iš kelių gijų sugadina duomenis. Srautinio sprendimo greitaveika matuosime:
 \begin{enumerate}
     \item Kiek duomenų srautinis sprendimas apdoroja per sekundę.
-    \item Kiek užtrunka vieno duomens apdorojimas nuo duomens gavimo iš ,,Apache Kafka" serviso iki gauto duomens agregacijos į bendrą sarašą pabaigos.
+    \item Kiek užtrunka vieno duomens apdorojimas nuo duomens gavimo iš ,,Apache Kafka" serviso iki gauto duomens agregavimo į bendrą sąrašą pabaigos.
 \end{enumerate}
 
  \subsubsection{Reliacinės duomenų bazės sprendimo realizacija}
@@ -302,14 +302,14 @@ parduotuvės (Shop) uždirbti pinigus pagal nesudėtingą sumavimo formulę.
 \end{figure}
 Kad duomenys iš generatoriaus patektų į duomenų bazę buvo sukurta programa su ,,Python" kalba kuri gauna duomenis iš ,,Apache Kafka" žinučių sistemos ir talpina jas
 duomenų bazėje, kiekviena gauta JSON užkoduota žinutė yra paverčiama į ,,Python" žodyno (angl. dictonary) tipą ir įdedama į įvedimo užklausą, kuri iškarto yra 
-įvykdoma duomenų bazėje. Tokiu budu užtikrinamas nepertraukiamas duomenų įvedimas į reliacinė duomenų bazę.\par
+įvykdoma duomenų bazėje. Taip užtikrinamas nepertraukiamas duomenų įvedimas į reliacinė duomenų bazę.\par
 Procedūros testavimui buvo naudojama papildoma ,,Python" kalba parašyta programa, kuri gavusi žinutę iš ,,Apache Kafka" sistemos sukuria įdėjimo užklausą į duomenų bazę.
 Taip pat ,,GetReports" procedūros iškvietimui buvo naudojama ,,Python" kalba parašyta programa, kuri periodiškai kviečia šią procedūrą. 
 Kadangi negalima testuoti procedūros taip pat kaip srautinio apdorojimo sprendimą, šis testas bus daromas kitaip.
-Vienu metu buvo įvedami nauji duomenys ir tuo pat metu, tam tikru laiko intervalu, kviečiama procedūra ir buvo tikrinima:
+Vienu metu buvo įvedami nauji duomenys ir tuo pat metu, tam tikru laiko intervalu, kviečiama procedūra ir buvo tikrinama:
     \begin{enumerate}
         \item Kiek duomenų per sekundę galima įdėti į duomenų bazę.
-        \item Kiek sekundžių suletėja procedūra, kai yra pastoviai įvedami nauji duomenys.
+        \item Kiek sekundžių sulėtėja procedūra, kai yra pastoviai įvedami nauji duomenys.
     \end{enumerate}
 \subsection{Eksperimento vykdymas}
 Kompiuterio komponentų ir programų versijų su kuriais buvo vykdomas eksperimentas specifikacijos (\ref{table:hardware} lentelė).
@@ -360,12 +360,12 @@ Eksperimento eiga su srautinio duomenų apdorojimo sprendimu:
             \hline
             Procesorius & Reliacinės duomenų bazės sprendimas & Srautinio apdorojimo sprendimas \\* \hline
             Pralaidumas (duomenų kiekis per sekundę) & \textasciitilde4,200 & \textasciitilde5,475 \\* \hline
-            Vienos duomens apdorojimas ir agregacija & \textasciitilde75 milisekundės & \textasciitilde12 sekundžių \\* \hline
+            Vienos duomens apdorojimas ir agregavimas & \textasciitilde75 milisekundės & \textasciitilde12 sekundžių \\* \hline
         \end{tabular}
     \end{center}
 \end{table}\par
 \subsubsection{Reliacinės duomenų bazės sprendimo eksperimento rezultatai}
-Tiesiog kviečiama procedūrą ,,GetReports" trunka vidutiniškai 12 sekundžių. Leidžiant įdejimo užklausas, be jokios kitos apkrovos ant duomenų bazės, 1,5 milijonų duomenų
+Tiesiog kviečiama procedūrą ,,GetReports" trunka vidutiniškai 12 sekundžių. Leidžiant įdėjimo užklausas, be jokios kitos apkrovos ant duomenų bazės, 1,5 milijonų duomenų
 buvo įdėti per 358 sekundžių, beveik 6 minutes. Tačiau paleidus tokį pat pastovų įrašų srautą į duomenų bazę ir bandant tuo pačiu metu gauti apdorotus duomenis,
 procedūra užtruko vidutiniškai 29 sekundes ir taip pat apdorotas duomenų sąrašas po generavimo atsiliko virš 120,000 įrašų - tiek duomenų buvo įdėta procedūros veikimo metu. 
 Per visą naujų duomenų įdėjimo laiką procedūra ,,GetReports" buvo ivykdyta 10 kartų.
@@ -385,7 +385,7 @@ Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt", nes jo negalima buvo 
 \vspace{1 mm}
 
     \begin{enumerate}
-        \item Sukurtas testavimo duomenų generatorius, sukurtas supaprastinto uždavinio sprendimas su reliacina duomenų baze ir su srautinio apdorojimo archiketūra.
+        \item Sukurtas testavimo duomenų generatorius, sukurtas supaprastinto uždavinio sprendimas su reliacine duomenų baze ir su srautinio apdorojimo architektūra.
         \item Uždavinio sprendimai palyginti pagal pralaidumo testų rezultatus.
     \end{enumerate}
     \vspace{1 mm}
@@ -396,11 +396,11 @@ Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt", nes jo negalima buvo 
     \begin{enumerate}
     \item Eksperimento būdu pagrįsta, kad siūloma sistema gali būti įgyvendinama.
     \item Pralaidumo testavimo metu įrodyta, kad srautinio duomenų apdorojimo sprendimas apdoroja duomenis greičiau 
-    (\textasciitilde75 milisekundės naujo duomens apdorojimui ir agregacijai į esamą sarašą) nei reliacinių duomenų
+    (\textasciitilde75 milisekundės naujo duomens apdorojimui ir agregavimui į esamą sąrašą) nei reliacinių duomenų
     bazės sprendimas (\textasciitilde12 sekundžių) ir nėra priklausomas nuo kitų tuo pačiu metu vykdomų procesų.
     \item Eksperimentui sukurtos sistemos srautinio duomenų apdorojimo sprendimo pralaidumas aukštesnis 
     (\textasciitilde5,475 duomenų per sekundę), negu reliacinės duomenų bazės (\textasciitilde 4,200 duomenų per sekundę). 
-    \item Srautinio apdorojimo architektūra ,,Apache Storm" šiam uždaviniui užtikrina duomenų apdorojima milisekundžių greičiu.  
+    \item Srautinio apdorojimo architektūra ,,Apache Storm" šiam uždaviniui užtikrina duomenų apdorojimą milisekundžių greičiu.  
 
     \end{enumerate}
 
