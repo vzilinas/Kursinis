@@ -90,7 +90,10 @@ Uždaviniai:
     \item Realizuoti srautinio duomenų apdorojimo architektūros rodiklių duomenų kaupimo sprendimą.
     \item Išmatuoti srautinio duomenų apdorojimo ir reliacinės duomenų bazės sprendimų pralaidumus ir palyginti testavimo rezultatus.
 \end{enumerate}
-
+Šiame darbe nagrinėjamas rodiklių duomenų kaupimas ir agregavimas fokusuojantis į greiti. Siekiama palyginti tracidinį sprendimą su duomenų baze su sprendimu,
+išpildytų srautinio apdorojimo architektūra. Buvo palygintos greitaveikos pagal pralaidumą, kuris parodo koks kiekis duomenų yra apdorojamas nuo įeigos pradžios iki
+suagregavimo pagal rodiklius. Pralaidumas yra įprastinė tokių sistemų matavimo metrika greitaveikai išmatuoti, kuri yra naudojama ir kitų šaltinių: 
+\cite{karimov2018benchmarking, Lopez2016APC chintapalli2016benchmarking.} 
 Eksperimentui buvo naudojamas labai paprastas duomenų modelis, kuriame duomenys buvo apdorojami tik pagal vieną rodiklį.
 
 \section{Duomenų apdorojimo tipai}
@@ -146,8 +149,8 @@ Kad apžvelgti modernias srautinio duomenų apdorojimo architektūrą reikia aps
         Reliacinių duomenų bazių duomenų transformacijos ir agregavimo būdas yra procedūros (angl. stored procedures), kurios gali apdoroja duomenis tiesiai iš duomenų bazės 
     naudojant reliacinę matematiką. Tačiau jeigu pažiūrėsimi į procedūrą, kaip duomenų apdorojimo architektūrą pagal \ref{strprocess} skyriuje apibrėžtas 8 taisykles, 
     matysime, jog procedūra neatitinka 1-os taisyklės, kuri teigia, kad duomenys turi judėti. Procedūros yra leidžiamos tik vartotojui užklausus, todėl šis reikalavimas yra neišpildytas, 
-    ir 7-os taisyklės, kuri teigia, kad architektūra turi užtikrinti sugebėjimą paskirstyti sistemos darbus automatiškai. Dalis reliacinių duomenų bazių nepalaiko horizontalų 
-    plečiamumą \cite{cattelsql, jkubas} ir todėl viena sistema gali apdoroti tik pas ją esančius duomenis. Kadangi kuo daugiau duomenų yra reliacinėje duomenų bazėje 
+    ir 7-os taisyklės, kuri teigia, kad architektūra turi užtikrinti sugebėjimą paskirstyti sistemos darbus automatiškai, taičiau dalis reliacinių duomenų bazių nepalaiko horizontalų 
+    plečiamumą \cite{cattelsql, jkubas}. Kadangi kuo daugiau duomenų yra reliacinėje duomenų bazėje 
     tuo ilgiau užtrūks tų duomenų apdorojimas, todėl reliacinių duomenų bazių sprendimas pažeidžia 8-tą duomenų 
     apdorojimo taisyklę ir yra mažiau tinkamas rodiklių duomenų apdorojimui.
 
@@ -354,13 +357,13 @@ Eksperimento eiga su srautinio duomenų apdorojimo sprendimu:
 \subsection{Eksperimento rezultatai}
 \begin{table}[!htbp]
     \begin{center}
-        \caption{Rezultatai}
+        \caption{Rezultatų palyginimas}
         \label{table:results}
         \begin{tabular}{ | l | p{4cm} | p{3cm} | } 
             \hline
               & Reliacinės duomenų bazės sprendimas & Srautinio apdorojimo sprendimas \\* \hline
             Pralaidumas (duomenų kiekis per sekundę) & \textasciitilde4,200 & \textasciitilde5,475 \\* \hline
-            Vienos duomens apdorojimas ir agregavimas  & \textasciitilde12 sekundžių & \textasciitilde75 milisekundės\\* \hline
+            Naujo duomens apdorojimas ir agregavimas  & \textasciitilde12 sekundžių & \textasciitilde75 milisekundės\\* \hline
         \end{tabular}
     \end{center}
 \end{table}\par
