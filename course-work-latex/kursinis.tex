@@ -108,7 +108,8 @@ Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia aps
 \begin{enumerate}[label=\arabic*]
     \item taisyklė: Duomenys turi judėti. Žemo uždelstumo užtikrinimui sistema turi apdoroti duomenis nenaudojant duomenų saugojimo operacijas. Taip pat sistema turi ne pati užklausti duomenų, o gauti juos
     iš kito šaltinio automatiškai. 
-    \item taisyklė: Duomenų transformacijos turi būti vykdomas SQL pobūdžio užklausomis. Žemo lygio srautinio apdorojimo sistemos reikalauja ilgesnio programavimo laiko ir brangesnio palaikymo. Tuo tarpu aukšto lygio sistema 
+    \item taisyklė: Duomenų transformacijos turi būti vykdomas SQL pobūdžio užklausomis. Žemo abstrakciojos lygmens srautinio apdorojimo sistemos reikalauja ilgesnio 
+    programavimo laiko ir brangesnio palaikymo. Tuo tarpu aukšto abstrakcijo lygmens sistema 
     naudojanti SQL užklausas, kurias žino dauguma programuotojų ir naudojama daug skirtingų sistemų, leidžia efektyviau kurti srautinio apdorojimo sprendimus.
     \item taisyklė: Architektūra turi susidoroti su duomenų netobulumais. Architektūra turi palaikyti galimybę nutraukti individualius skaičiavimus, tam kad neatsirastų blokuojančių operacijų. Taip pat ši 
     architektūra turi sugebėti susidoroti su vėluojančiomis žinutėmis, pratęsiant laiko tarpą per kurį tą žinutė turi ateiti.
@@ -163,7 +164,7 @@ Kad apžvelgti modernias srautinio duomenų apdorojimo architektūras reikia aps
     \item Uždelstumas (angl. latency) - apibrėžia laikų sumą - kiek laiko trūko viena operacija ir kiek laiko ši operacija turėjo laukti eilėje
     kol bus pabaigtos kitos operacijos \cite{karimov2018benchmarking}.
     \item Pralaidumas (angl. throughput) - apibrėžia kiek pavyks įvykdyti operacijų per tam tikrą laiko tarpą.
-    \item Abstrakcijos lygis (angl. abstraction) - apibrėžia kokio lygio programavimo sąsają pateikia sprendimas.
+    \item Abstrakcijos lygmuo (angl. abstraction) - apibrėžia kokio lygmens programavimo sąsają pateikia sprendimas.
 \end{itemize}
 
 \subsection{Pristatymo semantika}
@@ -179,7 +180,8 @@ užtikrinantis tiksliai vieno karto apdorojimą. Tačiau jei uždavinys nereikal
 rinktis bent vieną kartą ar ne daugiau vieno karto semantikas, kadangi jos neturi papildomų apsaugų, kurios reikalingos tiksliai vieno karto apdorojimui,
 ir todėl veikia greičiau \cite{zhang20}.
 \subsection{Uždelstumas}
-    Uždelstumas, srautinio apdorojimo sprendimams yra matuojamas milisekundėmis, tai parodo kiek greitai sprendimas įvykdo vieną operaciją. 
+    Uždelstumas, srautinio apdorojimo sprendimams yra matuojamas laiku, kruis parodo kiek greitai sprendimas įvykdo vieną operaciją, nuo jos patekimo į eilę iki šios operacijos
+    apdorojimo pabaigos. 
 Pagal \cite{Lopez2016APC} aprašytus Martin Andreoni Lopez ,,Apache Storm", ,,Apache Spark" ir ,,Apache Flink" bandymus galima matyti, kad būtent ,,Apache Storm" turi mažiausią uždelstumą,
 parinkus teisingai paralelizmo parametrą šis sprendimas su užduotimi susidorojo net iki 15 kartų greičiau. Antroje vietoje liko ,,Apache Flink", o po jos
 ,,Apache Spark".
@@ -190,7 +192,7 @@ Pralaidumas apibrėžia kokį kiekį procesų sistema gali įvykdyti per tam tik
 pralaidumą iš visų, kadangi jis vienintelis iš trijų duomenis apdoroja mikro-paketais. Antroje vietoje liko ,,Apache Flink", kuris yra subalansuotas
 pralaidumo atveju ir paskutinis liko ,,Apache Storm", kuris turi žemą uždelstumą, todėl nukenčia pralaidumas.
 
-\subsection{Abstrakcijos lygis}
+\subsection{Abstrakcijos lygmuo}
 
 ,,Apache Storm" parašytos programos yra žemo abstrakcijos lygmens, tai reiškia, kad turi būti aprašyti visi srautinio apdorojimo moduliai: 
 setSpouts(..), kur nustatoma duomenų įeiga ir koks bus paralelizmo lygis, setBolt(..), kur nustatomi apdorojimo moduliai,
@@ -198,14 +200,14 @@ kokius duomenis gaus iš prieš tai buvusio modulio ir paralelizmo lygis. Kiekvi
 turi apdoroti duomenis \cite{tutpoint}. Šio sprendimo programų kūrimo laikas užtruks ilgiau negu kitiems sprendimams su aukštu abstrakcijos lygmeniu,
 tačiau žemas abstrakcijos leidžia rašyti daug greičiau veikiančias programas, kadangi programuotojas turi pilną kontrolę.
 
-,,Apache Spark" parašytos programos yra aukšto lygio abstrakcijos. 
+,,Apache Spark" parašytos programos yra aukšto abstrakcijos lygmes. 
 Programa aprašoma funkciškai, todėl kodo rašymas trunka daug trumpiau ir tokį kodą daug patogiau skaityti. Tačiau prarandama galimybė optimizuoti
 ir paralelizmo klausimas paliekamas sprendimui. Kadangi ,,Apache Spark" yra ne pilnai srautinis, o mikro-paketinis (angl. micro-batching) 
 sprendimas, todėl vartotojas turi apsirašyti kokio dydžio paketais bus renkami duomenys \cite{shoro2015big}.
 
 ,,Apache Flink" parašytos programos yra aukšto abstrakcijos lygmens. ,,Apache Flink" 
 sprendimas pati užsiima resursų distribucija, todėl programuotojui lieka tik parašyti veikianti kodą, o sistema pati susitvarkys su paralelizmu \cite{flinkdoc}. Tačiau 
-tai reiškia, kad su šiuo sprendimu parašytos programos nepavyks optimizuoti taip pat gerai kaip žemo lygio abstrakcijos sprendimai.
+tai reiškia, kad su šiuo sprendimu parašytos programos nepavyks optimizuoti taip pat gerai kaip žemo abstrakcijos lygmens sprendimai.
 
 \subsection{Apibendrinimas}
 Iš šių trijų sprendimų reikėjo pasirinkti vieną, kuri labiausiai tiks rodiklių duomenų apdorojimui. Šis sprendimas turi sugebėti greitai apdoroti duomenis,
@@ -235,9 +237,7 @@ sukūrė sprendimą, kurį lygins su reliacinės duomenų bazės sprendimu.
 
 Eksperimentui buvo pasirinkta supaprastinta uždavinio versija norint palyginti reliacinės duomenų bazės sprendimo ir srautinio duomenų 
 apdorojimo sprendimo greitaveikas (\ref{fig:architecture} pav.).
-Šis eksperimentas yra aktualus tada, kai neapdorotų duomenų saugoti nereikia, o svarbi tik jų galutinė forma. Srautinio duomenų apdorojimo architektūra
-išveda tik apdorotus duomenis, o reliacinė duomenų bazė duomenis turi saugoti atmintyje, kadangi šie duomenys vėliau turi būti apdoroti su sukurta 
-procedūra. Eksperimento tikslas - išmatuoti ir palyginti abiejų sistemų greitaveiką, matuojant jų pralaidumą ir vieno naujo duomens apdorojimo laiką.
+Eksperimento tikslas - išmatuoti ir palyginti abiejų sistemų greitaveiką, matuojant jų pralaidumą ir vieno naujo duomens apdorojimo laiką.
 
 \begin{figure}[!htbp]
     \centering
@@ -282,9 +282,9 @@ kurio pagalba užtikrina, kad duomenys sėkmingai nuėjo iki sekančio žingsnio
     \item ,,calculate-price-bolt" - ,,Bolt" modulis, kuris gauna tekstinio tipo duomenis iš ,,kafka-spout" ir apdoroja vieną atėjusį ,,Tuple".
     \item ,,aggregate-price-bolt" - ,,Bolt" modulis, kuris gauna apdorota ,,Tuple" iš ,,calculate-price-bolt" ir įdeda jį į ,,HashMap" tipo sąrašą ir visą sąrašą kas nustatytą laiko tarpą spausdina į tekstinį dokumentą.  
 \end{enumerate}\par
-Kadangi ,,Apache Storm" yra žemo lygio architektūra programuotojas turi pats numatyti paralelizmo lygi kiekviename modulyje. 
+Kadangi ,,Apache Storm" yra žemo abstrakcijos lygmens architektūra programuotojas turi pats numatyti paralelizmo lygi kiekviename modulyje. 
 Po bandymų buvo nuspręsta modelių konfigūraciją daryti tokią: ,,kafka-spout" - 5 paralelus procesai, ,,calculate-price-bolt"
- - 5 paralelus procesai ir ,,aggregate-price-bolt" - 1 paralelus procesas. Paskutinį moduli negalima leisti paraleliai, nes jame saugomas bendras sąrašas,
+ - 5 paralelus procesai ir ,,aggregate-price-bolt" - 1 procesas. Paskutinį moduli negalima leisti paraleliai, nes jame saugomas bendras sąrašas,
 kurio keitimas iš kelių gijų sugadina duomenis. Srautinio sprendimo greitaveika matuosime:
 \begin{enumerate}
     \item Kiek duomenų srautinis sprendimas apdoroja per sekundę.
@@ -387,9 +387,9 @@ Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt", nes jo negalima buvo 
 \vspace{1 mm}
 
     \begin{enumerate}
-        \item Sukurtas testinių duomenų generatorius\uri{https://git.mif.vu.lt/vyzi2849/storm-topology-java}, 
-        sukurtas supaprastinto uždavinio sprendimas su reliacine duomenų baze \uri{https://git.mif.vu.lt/vyzi2849/storm-topology-java}
-         ir su pasirinkta srautinio apdorojimo architektūra\uri{https://git.mif.vu.lt/vyzi2849/storm-topology-java}.
+        \item Sukurtas testinių duomenų generatorius - \uri{https://git.mif.vu.lt/vyzi2849/test-data-generator-python}, 
+        sukurtas supaprastinto uždavinio sprendimas su reliacine duomenų baze - \uri{https://git.mif.vu.lt/vyzi2849/database-testing-tools-python}
+         ir su pasirinkta srautinio apdorojimo architektūra - \uri{https://git.mif.vu.lt/vyzi2849/storm-topology-java}.
         \item Uždavinio sprendimai palyginti pagal pralaidumo testų rezultatus.
     \end{enumerate}
     \vspace{1 mm}
@@ -404,7 +404,8 @@ Lėčiausia sistemos grandis buvo ,,aggregate-price-bolt", nes jo negalima buvo 
     ir srautinio apdorojimo sprendimas nėra priklausomas nuo kitų tuo pačiu metu vykdomų procesų.
     \item Eksperimentui sukurtos sistemos srautinio duomenų apdorojimo sprendimo pralaidumas aukštesnis 
     (\textasciitilde5,475 duomenų per sekundę), negu reliacinės duomenų bazės (\textasciitilde 4,200 duomenų per sekundę). 
-    \item Srautinio apdorojimo architektūra ,,Apache Storm" šiam uždaviniui užtikrina duomenų apdorojimą milisekundžių greičiu.  
+    \item Srautinio apdorojimo architektūra ,,Apache Storm" šiam uždaviniui užtikrina duomenų apdorojimą milisekundžių greičiu,
+    kadangi suagreguotos reikšmės laikomos operatyvioi atmintyje ir nauji apdoroti duomenis yra pridedami prie jau esamo sąrašo.
 
     \end{enumerate}
 

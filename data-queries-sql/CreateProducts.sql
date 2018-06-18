@@ -3,7 +3,7 @@ USE [Kursinis]
 DECLARE @Id INT
 SET @Id = 1
 
-WHILE @Id < 2000001
+WHILE @Id < 1000001
 BEGIN
 	INSERT INTO [dbo].[Product]
 			   ([Id]

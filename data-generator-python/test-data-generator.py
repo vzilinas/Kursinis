@@ -1,45 +1,26 @@
 from kafka import KafkaProducer
+from datetime import datetime
 import json
 import random
 import string
-import time
-from datetime import datetime
 
-
-producer = KafkaProducer(bootstrap_servers='localhost:9092', max_block_ms=1)
+producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
 messages = []
-throttle_amount = 0.1 #defines the amount of throttle required to reach optimal throughput
-for x in range(0, 500000):
+for x in range(0, 1500000):
 	data = {}
-	#data['price'] = round(random.random() * 100, 3)
+	data['price'] = round(random.random() * 100, 3)
 	data['product_id'] = random.randint(1, 2000000)
-	#data['tax_percent'] = random.randint(1, 20)
+	data['tax_percent'] = random.randint(1, 20)
 	data['amount'] = random.randint(1, 5)
-	#data['shop_name'] = "".join([random.choice(string.letters[:5]) for i in xrange(6)])
+	data['shop_name'] = "".join([random.choice(string.letters[:13]) for i in xrange(3)])
 	json_data = json.dumps(data).encode('utf-8')
 	messages.append(json_data)
 	
-print(str(datetime.now()))
-print("sending 1")	
+print(str(datetime.now()) + " started sending")	
+
 for msg in messages:
-	#time.sleep(throttle_amount)
+	time.sleep(throttle_amount)
 	producer.send('generate_report', msg)
-print("sent 1")
-print(str(datetime.now()))
 
-# print(str(datetime.now()))
-# print("sending 2")	
-# for msg in messages:
-# 	#time.sleep(throttle_amount)
-# 	producer.send('generate_report', msg)
-
-# print("sent 2")
-# print(str(datetime.now()))
-# print("sending 3")	
-# for msg in messages:
-# 	#time.sleep(throttle_amount)
-# 	producer.send('generate_report', msg)
-# print("sent 3")
-# print(str(datetime.now()))
-# producer.flush()
+print(str(datetime.now()) + " sent")
